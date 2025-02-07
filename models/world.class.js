@@ -10,11 +10,21 @@ class World {
     ];
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
+    }
+
+    setWorld() {
+        this.character.world = this;
+        this.enemies.forEach((enemy) => (enemy.world = this));
+        this.clouds.forEach((cloud) => (cloud.world = this));
+        this.backgroundObjects.forEach((object) => (object.world = this));
     }
 
     draw() {
