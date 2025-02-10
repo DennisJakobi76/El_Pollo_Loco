@@ -1,8 +1,8 @@
-enemies = [new Chicken(), new Chicken(), new Chicken()];
+enemies = [new Chicken(), new Chicken(), new Chicken(), new Endboss()];
 clouds = [new Cloud()];
 backgroundObjects = [];
 
-addBackgroundObjectsToArray(20, backgroundObjects, -719);
+addBackgroundObjectsToArray(4, backgroundObjects, -719);
 
 let level1 = new Level(enemies, clouds, backgroundObjects);
 
