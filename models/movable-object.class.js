@@ -9,7 +9,7 @@ class MovableObject {
     otherDirection = false;
     currentImage = 0;
     fallSpeed = 0;
-    fallAcceleration = 1.28;
+    fallAcceleration = 1;
 
     loadImage(path) {
         this.img = new Image();
@@ -24,16 +24,25 @@ class MovableObject {
         });
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        //TODO - entfernen, wenn nicht mehr benötigt
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "blue";
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+
     moveRight() {
-        setInterval(() => {
-            this.x += this.speed;
-        }, 1000 / 60);
+        this.x += this.speed;
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
     }
 
     playAnimation(array) {
@@ -45,14 +54,14 @@ class MovableObject {
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.fallSpeed > 0) {
                 this.y -= this.fallSpeed;
                 this.fallSpeed -= this.fallAcceleration;
             }
-        }, 1000 / 25);
+        }, 1000 / 40);
     }
 
     isAboveGround() {
-        return this.y < 175;
+        return this.y < 180;
     }
 }
