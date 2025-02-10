@@ -37,7 +37,10 @@ class World {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
         }
-        this.ctx.drawImage(movableObject.img, movableObject.x, movableObject.y, movableObject.width, movableObject.height);
+        movableObject.draw(this.ctx);
+        //TODO - entfernen, wenn nicht mehr benötigt
+        movableObject.drawFrame(this.ctx);
+
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
