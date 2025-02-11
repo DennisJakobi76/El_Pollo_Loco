@@ -32,12 +32,19 @@ class Endboss extends MovableObject {
 
     IMAGES_HURT = ["../assets/img/4_enemie_boss_chicken/4_hurt/G21.png", "../assets/img/4_enemie_boss_chicken/4_hurt/G22.png", "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png"];
 
+    offset = {
+        top: 70,
+        bottom: 20,
+        left: 10,
+        right: 10,
+    };
+
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.height = 400;
         this.width = 280;
-        this.x = 700;
+        this.x = 4680;
         this.y = 56;
         this.speed = 0.15 + Math.random() * 0.75;
         this.animate();
