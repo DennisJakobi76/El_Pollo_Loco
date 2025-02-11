@@ -63,6 +63,14 @@ class Character extends MovableObject {
     IMAGES_HURT = ["../assets/img/2_character_pepe/4_hurt/H-41.png", "../assets/img/2_character_pepe/4_hurt/H-42.png", "../assets/img/2_character_pepe/4_hurt/H-43.png"];
 
     world;
+
+    offset = {
+        top: 100,
+        bottom: 10,
+        left: 26,
+        right: 26,
+    };
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);

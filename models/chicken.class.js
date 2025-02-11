@@ -7,6 +7,13 @@ class Chicken extends MovableObject {
 
     IMAGES_DEAD = ["../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
 
+    offset = {
+        top: 2,
+        bottom: 5,
+        left: 0,
+        right: 0,
+    };
+
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
