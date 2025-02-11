@@ -10,6 +10,7 @@ class MovableObject {
     currentImage = 0;
     fallSpeed = 0;
     fallAcceleration = 1;
+    energy = 100;
 
     offset = {
         top: 0,
