@@ -44,11 +44,20 @@ class MovableObject {
         this.x -= this.speed;
     }
 
-    playAnimation(array) {
+    playAnimationInfinite(array) {
         let index = this.currentImage % array.length;
         let path = array[index];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    playAnimationOnce(array) {
+        // this.currentImage = 0;
+        if (this.currentImage < array.length) {
+            this.playAnimationInfinite(array);
+        } else {
+            this.currentImage = 0;
+        }
     }
 
     applyGravity() {
@@ -94,7 +103,7 @@ class MovableObject {
     }
 
     isDead() {
-        return this.energy == 0;
+        return this.energy <= 0;
     }
 
     hit() {

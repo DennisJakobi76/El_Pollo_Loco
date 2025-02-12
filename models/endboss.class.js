@@ -44,7 +44,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.height = 400;
         this.width = 280;
-        this.x = 4680;
+        this.x = 4000;
         this.y = 56;
         this.speed = 0.15 + Math.random() * 0.75;
         this.animate();
@@ -53,7 +53,7 @@ class Endboss extends MovableObject {
     animate() {
         // this.moveLeft();
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
+            this.playAnimationInfinite(this.IMAGES_ALERT);
         }, 200);
     }
 }
