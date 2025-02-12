@@ -12,11 +12,7 @@ class ThrowableObject extends MovableObject {
         this.fallSpeed = 15;
         this.applyGravity();
         setInterval(() => {
-            if (this.y <= 365) {
-                this.x += 10;
-            } else {
-                this.x += 0;
-            }
+            this.isAboveGround() ? (this.x += 10) : (this.x += 0);
         }, 30);
     }
 }
