@@ -44,8 +44,4 @@ class DrawableObject {
             ctx.stroke();
         }
     }
-
-    stickCameraToObject() {
-        this.world.camera_x = -this.x + 100;
-    }
 }

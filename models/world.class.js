@@ -8,6 +8,7 @@ class World {
     healthBar = new StatusBarHealth();
     coinBar = new StatusBarCoin();
     bottleBar = new StatusBarBottle();
+    bottles = [];
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -15,7 +16,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
@@ -26,7 +27,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsFromArrayToMap(this.level.backgroundObjects);
-        this.addToMap(this.character);
+
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects
         this.addToMap(this.healthBar);
@@ -34,8 +35,10 @@ class World {
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
 
+        this.addToMap(this.character);
         this.addObjectsFromArrayToMap(this.level.enemies);
         this.addObjectsFromArrayToMap(this.level.clouds);
+        this.addObjectsFromArrayToMap(this.bottles);
         this.ctx.translate(-this.camera_x, 0);
 
         requestAnimationFrame(this.draw.bind(this));
@@ -71,13 +74,24 @@ class World {
     }
 
     checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            });
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 200);
+    }
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+            this.bottles.push(bottle);
+        }
     }
 }
