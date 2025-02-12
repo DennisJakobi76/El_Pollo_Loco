@@ -29,7 +29,6 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimationOnce(array) {
-        // this.currentImage = 0;
         if (this.currentImage < array.length) {
             this.playAnimationInfinite(array);
         } else {
