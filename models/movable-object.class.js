@@ -11,6 +11,7 @@ class MovableObject {
     fallSpeed = 0;
     fallAcceleration = 1;
     energy = 100;
+    lastHit = 0;
 
     offset = {
         top: 0,
@@ -110,6 +111,14 @@ class MovableObject {
         this.energy -= 5;
         if (this.energy <= 0) {
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit; // Difference in ms
+        timePassed = timePassed / 1000; // Difference in s
+        return timePassed < 0.62;
     }
 }
