@@ -1,9 +1,15 @@
 class StatusBar extends DrawableObject {
     percentage = 100;
-
+    IMAGES = [];
+    world;
     constructor() {
         super();
         this.loadImages(this.IMAGES);
+        this.x = 60;
+        this.y = 0;
+        this.height = 60;
+        this.width = 200;
+        this.setPercentage(100);
     }
 
     setPercentage(percentage) {
@@ -13,7 +19,18 @@ class StatusBar extends DrawableObject {
     }
 
     resolveImageIndex() {
-        if (this.percentage > 80) return 4 + (this.percentage === 100);
-        return Math.floor(this.percentage / 20);
+        if (this.percentage == 100) {
+            return 5;
+        } else if (this.percentage == 80) {
+            return 4;
+        } else if (this.percentage == 60) {
+            return 3;
+        } else if (this.percentage == 40) {
+            return 2;
+        } else if (this.percentage == 20) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

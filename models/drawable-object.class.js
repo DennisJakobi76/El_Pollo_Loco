@@ -6,6 +6,7 @@ class DrawableObject {
     img;
     imageCache = {};
     currentImage = 0;
+    world;
 
     loadImage(path) {
         this.img = new Image();
@@ -22,5 +23,29 @@ class DrawableObject {
 
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    drawOffset(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "red";
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.bottom - this.offset.top);
+            ctx.stroke();
+        }
+    }
+
+    stickCameraToObject() {
+        this.world.camera_x = -this.x + 100;
     }
 }

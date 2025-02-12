@@ -49,26 +49,6 @@ class MovableObject extends DrawableObject {
         return this.y < 180;
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
-
-    drawOffset(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = "red";
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right - this.offset.left, this.height - this.offset.bottom - this.offset.top);
-            ctx.stroke();
-        }
-    }
-
     isColliding(movableObject) {
         return (
             this.x + this.width - this.offset.right > movableObject.x + movableObject.offset.left && // R -> L
@@ -83,7 +63,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 5;
+        this.energy -= 20;
         if (this.energy <= 0) {
             this.energy = 0;
         } else {

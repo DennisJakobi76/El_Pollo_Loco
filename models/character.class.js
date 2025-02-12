@@ -107,16 +107,12 @@ class Character extends MovableObject {
             if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
                 this.jump();
             }
-            this.stickCameraToCharacter();
+            this.stickCameraToObject();
         }, 1000 / 60);
     }
 
     jump() {
         this.fallSpeed = 20;
-    }
-
-    stickCameraToCharacter() {
-        this.world.camera_x = -this.x + 100;
     }
 
     playWalkingAnimation() {
