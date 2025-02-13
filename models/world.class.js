@@ -53,8 +53,8 @@ class World {
         }
         movableObject.draw(this.ctx);
         //TODO - entfernen, wenn nicht mehr benötigt
-        movableObject.drawFrame(this.ctx);
-        movableObject.drawOffset(this.ctx);
+        // movableObject.drawFrame(this.ctx);
+        // movableObject.drawOffset(this.ctx);
 
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
