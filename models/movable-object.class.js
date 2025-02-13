@@ -30,7 +30,8 @@ class MovableObject extends DrawableObject {
 
     playAnimationOnce(array) {
         if (this.currentImage < array.length) {
-            this.playAnimationInfinite(array);
+            this.img = this.imageCache[array[this.currentImage]];
+            this.currentImage++;
         } else {
             this.currentImage = 0;
         }
