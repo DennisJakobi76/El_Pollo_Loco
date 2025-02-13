@@ -2,6 +2,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    background-image: url("./assets/img/background_and_header/desert_background.png");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#header {
+    height: 200px;
+    width: 400px;
 }
 
 canvas {
