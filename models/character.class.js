@@ -4,6 +4,7 @@ class Character extends MovableObject {
     y;
     speed = 10;
     idleStartTime = Date.now();
+    died = false;
 
     IMAGES_WALKING = [
         "../assets/img/2_character_pepe/2_walk/W-21.png",
@@ -110,6 +111,9 @@ class Character extends MovableObject {
             if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
                 this.jump();
             }
+            if (this.world.keyboard.D) {
+                this.resetIdleTimer();
+            }
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
     }
@@ -150,11 +154,14 @@ class Character extends MovableObject {
 
     playDyingAnimation() {
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && !this.died) {
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.resetIdleTimer();
+                setTimeout(() => {
+                    this.died = true;
+                }, 900);
             }
-        }, 120);
+        }, 150);
     }
 
     playIdleAnimation() {

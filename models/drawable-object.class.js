@@ -5,7 +5,6 @@ class DrawableObject {
     width = 100;
     img;
     imageCache = {};
-    currentImage = 0;
     world;
 
     loadImage(path) {

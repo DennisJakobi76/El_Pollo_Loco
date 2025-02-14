@@ -5,6 +5,8 @@ class MovableObject extends DrawableObject {
     fallAcceleration = 1;
     energy = 100;
     lastHit = 0;
+    currentImage = 0;
+    startedAnimationOnce = false;
 
     offset = {
         top: 0,
@@ -29,11 +31,16 @@ class MovableObject extends DrawableObject {
     }
 
     playAnimationOnce(array) {
+        if (!this.startedAnimationOnce) {
+            this.currentImage = 0;
+            this.startedAnimationOnce = true;
+        }
+        if (this.currentImage >= array.length) {
+            this.startedAnimationOnce = false;
+        }
         if (this.currentImage < array.length) {
             this.img = this.imageCache[array[this.currentImage]];
             this.currentImage++;
-        } else {
-            this.currentImage = 0;
         }
     }
 
