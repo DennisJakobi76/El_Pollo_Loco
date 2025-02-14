@@ -3,6 +3,8 @@ class Character extends MovableObject {
     width;
     y;
     speed = 10;
+    idleStartTime = Date.now();
+
     IMAGES_WALKING = [
         "../assets/img/2_character_pepe/2_walk/W-21.png",
         "../assets/img/2_character_pepe/2_walk/W-22.png",
@@ -92,6 +94,7 @@ class Character extends MovableObject {
         this.playJumpingAnimation();
         this.playHurtAnimation();
         this.playDyingAnimation();
+        this.playIdleAnimation();
     }
 
     checkAndPlayMovementAnimation() {
@@ -113,6 +116,7 @@ class Character extends MovableObject {
 
     jump() {
         this.fallSpeed = 20;
+        this.resetIdleTimer();
     }
 
     playWalkingAnimation() {
@@ -120,6 +124,7 @@ class Character extends MovableObject {
             if (!this.isAboveGround() && !this.isDead()) {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimationInfinite(this.IMAGES_WALKING);
+                    this.resetIdleTimer();
                 }
             }
         }, 50);
@@ -129,6 +134,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isAboveGround()) {
                 this.playAnimationOnce(this.IMAGES_JUMPING);
+                this.resetIdleTimer();
             }
         }, 150);
     }
@@ -137,6 +143,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimationInfinite(this.IMAGES_HURT);
+                this.resetIdleTimer();
             }
         }, 100);
     }
@@ -145,7 +152,22 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimationOnce(this.IMAGES_DEAD);
+                this.resetIdleTimer();
             }
         }, 120);
+    }
+
+    playIdleAnimation() {
+        let idleTimeout = 10 * 1000; // 15 Sekunden
+
+        setInterval(() => {
+            if (!this.isAboveGround() && !this.isDead() && !this.isHurt() && this.isWaiting()) {
+                if (Date.now() - this.idleStartTime < idleTimeout) {
+                    this.playAnimationInfinite(this.IMAGES_IDLE);
+                } else {
+                    this.playAnimationInfinite(this.IMAGES_LONG_IDLE);
+                }
+            }
+        }, 160);
     }
 }
