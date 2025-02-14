@@ -158,7 +158,7 @@ class Character extends MovableObject {
     }
 
     playIdleAnimation() {
-        let idleTimeout = 10 * 1000; // 15 Sekunden
+        let idleTimeout = 10 * 1000;
 
         setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.isHurt() && this.isWaiting()) {
