@@ -81,4 +81,16 @@ class MovableObject extends DrawableObject {
         timePassed = timePassed / 1000; // Difference in s
         return timePassed < 0.62;
     }
+
+    isWaiting() {
+        if (!this.world.keyboard.SPACE && !this.world.keyboard.UP && !this.world.keyboard.LEFT && !this.world.keyboard.RIGHT && !this.world.keyboard.DOWN && !this.world.keyboard.D) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    resetIdleTimer() {
+        this.idleStartTime = Date.now();
+    }
 }
