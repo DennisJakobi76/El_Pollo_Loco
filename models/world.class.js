@@ -90,7 +90,13 @@ class World {
     }
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+            let bottle;
+            if (this.character.otherDirection) {
+                bottle = new ThrowableObject(this.character.x - 12, this.character.y + 120);
+            } else {
+                bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+            }
+
             this.bottles.push(bottle);
         }
     }

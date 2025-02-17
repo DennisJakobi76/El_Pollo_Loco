@@ -17,6 +17,7 @@ class ThrowableObject extends MovableObject {
         this.height = 60;
         this.width = 50;
         this.characterLooksRight = true;
+        this.world = world;
         this.throw();
     }
 
@@ -32,17 +33,13 @@ class ThrowableObject extends MovableObject {
         }, 30);
     }
 
-    //TODO - Wurfrichtung implementieren
     playFlyingBottleAnimation() {
         this.playAnimationInfinite(this.IMAGES_ROTATION);
-        // if (this.keyboard.RIGHT) {
-        //     this.characterLooksRight = true;
-        //     this.x += 10;
-        // } else if (this.keyboard.LEFT) {
-        //     this.characterLooksRight = false;
-        //     this.x -= 10;
-        // }
-        this.x += 10;
+        if (this.world.character.otherDirection) {
+            this.x -= 10;
+        } else {
+            this.x += 10;
+        }
     }
 
     playBottleOnGroundAnimation() {
