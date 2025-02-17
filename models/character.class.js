@@ -131,7 +131,7 @@ class Character extends MovableObject {
                     this.resetIdleTimer();
                 }
             }
-        }, 50);
+        }, 100);
         intervalIds.push(characterWalkingInterval);
     }
 
