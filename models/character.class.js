@@ -162,8 +162,8 @@ class Character extends MovableObject {
                 this.resetIdleTimer();
                 setTimeout(() => {
                     this.died = true;
-                    this.endAllIntervals();
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
+                    this.endAllIntervals();
                 }, 800);
             }
         }, 150);
