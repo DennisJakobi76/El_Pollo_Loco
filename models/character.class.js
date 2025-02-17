@@ -164,7 +164,7 @@ class Character extends MovableObject {
                     this.died = true;
                     this.endAllIntervals();
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
-                }, 900);
+                }, 800);
             }
         }, 150);
         intervalIds.push(characterDyingInterval);
