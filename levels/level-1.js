@@ -1,5 +1,23 @@
 enemies = [new Chicken(), new Chicken(), new Endboss(), new SmallChicken()];
-clouds = [new Cloud()];
+clouds = [
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+    new Cloud(),
+];
 backgroundObjects = [];
 
 addBackgroundObjectsToArray(4, backgroundObjects, -719);

@@ -27,6 +27,7 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsFromArrayToMap(this.level.backgroundObjects);
+        this.addObjectsFromArrayToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects
@@ -37,7 +38,7 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsFromArrayToMap(this.level.enemies);
-        this.addObjectsFromArrayToMap(this.level.clouds);
+
         this.addObjectsFromArrayToMap(this.bottles);
         this.ctx.translate(-this.camera_x, 0);
 

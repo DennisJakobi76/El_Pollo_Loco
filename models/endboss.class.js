@@ -52,8 +52,9 @@ class Endboss extends MovableObject {
 
     animate() {
         // this.moveLeft();
-        setInterval(() => {
+        let endbossAlertInterval = setInterval(() => {
             this.playAnimationInfinite(this.IMAGES_ALERT);
         }, 200);
+        intervalIds.push(endbossAlertInterval);
     }
 }
