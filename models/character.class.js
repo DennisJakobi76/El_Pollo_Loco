@@ -6,6 +6,14 @@ class Character extends MovableObject {
     idleStartTime = Date.now();
     died = false;
 
+    world;
+    offset = {
+        top: 100,
+        bottom: 10,
+        left: 26,
+        right: 26,
+    };
+
     IMAGES_WALKING = [
         "../assets/img/2_character_pepe/2_walk/W-21.png",
         "../assets/img/2_character_pepe/2_walk/W-22.png",
@@ -65,15 +73,6 @@ class Character extends MovableObject {
 
     IMAGES_HURT = ["../assets/img/2_character_pepe/4_hurt/H-41.png", "../assets/img/2_character_pepe/4_hurt/H-42.png", "../assets/img/2_character_pepe/4_hurt/H-43.png"];
 
-    world;
-
-    offset = {
-        top: 100,
-        bottom: 10,
-        left: 26,
-        right: 26,
-    };
-
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
@@ -99,7 +98,7 @@ class Character extends MovableObject {
     }
 
     checkAndPlayMovementAnimation() {
-        setInterval(() => {
+        let characterCheckAnimationInterval = setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
@@ -116,6 +115,7 @@ class Character extends MovableObject {
             }
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
+        intervalIds.push(characterCheckAnimationInterval);
     }
 
     jump() {
@@ -124,7 +124,7 @@ class Character extends MovableObject {
     }
 
     playWalkingAnimation() {
-        setInterval(() => {
+        let characterWalkingInterval = setInterval(() => {
             if (!this.isAboveGround() && !this.isDead()) {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimationInfinite(this.IMAGES_WALKING);
@@ -132,42 +132,47 @@ class Character extends MovableObject {
                 }
             }
         }, 50);
+        intervalIds.push(characterWalkingInterval);
     }
 
     playJumpingAnimation() {
-        setInterval(() => {
+        let characterJumpingInterval = setInterval(() => {
             if (this.isAboveGround()) {
                 this.playAnimationOnce(this.IMAGES_JUMPING);
                 this.resetIdleTimer();
             }
         }, 150);
+        intervalIds.push(characterJumpingInterval);
     }
 
     playHurtAnimation() {
-        setInterval(() => {
+        let characterHurtInterval = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimationInfinite(this.IMAGES_HURT);
                 this.resetIdleTimer();
             }
         }, 100);
+        intervalIds.push(characterHurtInterval);
     }
 
     playDyingAnimation() {
-        setInterval(() => {
+        let characterDyingInterval = setInterval(() => {
             if (this.isDead() && !this.died) {
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.resetIdleTimer();
                 setTimeout(() => {
                     this.died = true;
+                    this.endAllIntervals();
+                    this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
                 }, 900);
             }
         }, 150);
+        intervalIds.push(characterDyingInterval);
     }
 
     playIdleAnimation() {
         let idleTimeout = 10 * 1000;
-
-        setInterval(() => {
+        let characterIdleInterval = setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.isHurt() && this.isWaiting()) {
                 if (Date.now() - this.idleStartTime < idleTimeout) {
                     this.playAnimationInfinite(this.IMAGES_IDLE);
@@ -176,5 +181,12 @@ class Character extends MovableObject {
                 }
             }
         }, 160);
+        intervalIds.push(characterIdleInterval);
+    }
+
+    endAllIntervals() {
+        intervalIds.forEach((interval) => {
+            clearInterval(interval);
+        });
     }
 }

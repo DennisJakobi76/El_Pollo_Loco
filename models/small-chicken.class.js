@@ -26,12 +26,14 @@ class SmallChicken extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
+        let smallChickenMovelLeftInterval = setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
 
-        setInterval(() => {
+        let smallChickenWalkInterval = setInterval(() => {
             this.playAnimationInfinite(this.IMAGES_WALKING);
         }, 100);
+        intervalIds.push(smallChickenMovelLeftInterval);
+        intervalIds.push(smallChickenWalkInterval);
     }
 }
