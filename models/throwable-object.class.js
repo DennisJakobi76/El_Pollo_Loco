@@ -8,6 +8,13 @@ class ThrowableObject extends MovableObject {
 
     IMAGES_BOTTLE_ON_GROUND = ["../assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png", "../assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png"];
 
+    offset = {
+        top: 10,
+        bottom: 8,
+        left: 18,
+        right: 10,
+    };
+
     constructor(x, y) {
         super().loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_BOTTLE_ON_GROUND);
