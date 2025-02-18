@@ -28,7 +28,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsFromArrayToMap(this.level.backgroundObjects);
         this.addObjectsFromArrayToMap(this.level.clouds);
-        this.addToMap(this.character);
+        this.addObjectsFromArrayToMap(this.level.coins);
         this.addObjectsFromArrayToMap(this.level.enemies);
         this.addObjectsFromArrayToMap(this.bottles);
 
@@ -37,8 +37,10 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+
         this.ctx.translate(this.camera_x, 0);
 
+        this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
 
         requestAnimationFrame(this.draw.bind(this));

@@ -32,11 +32,14 @@ clouds = [
     new Cloud(),
     new Cloud(),
 ];
+
+coins = [new CollectableObject(), new CollectableObject(), new CollectableObject(), new CollectableObject(), new CollectableObject()];
+
 backgroundObjects = [];
 
 addBackgroundObjectsToArray(4, backgroundObjects, -719);
 
-let level1 = new Level(enemies, clouds, backgroundObjects);
+let level1 = new Level(enemies, clouds, backgroundObjects, coins);
 
 function addBackgroundObjectsToArray(screenCounter, array, worldSize) {
     for (let i = 0; i < screenCounter; i++) {
