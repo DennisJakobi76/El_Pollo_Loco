@@ -6,11 +6,12 @@ enemies = [
     new Chicken(),
     new Chicken(),
     new Chicken(),
+    new Chicken(),
+    new SmallChicken(),
+    new SmallChicken(),
+    new SmallChicken(),
+    new SmallChicken(),
     new Endboss(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new SmallChicken(),
 ];
 clouds = [
     new Cloud(),
