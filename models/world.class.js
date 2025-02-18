@@ -9,6 +9,7 @@ class World {
     coinBar = new StatusBarCoin();
     bottleBar = new StatusBarBottle();
     bottles = [];
+    collectedCoins = 0;
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -84,11 +85,26 @@ class World {
         });
     }
 
+    pickUpCollectables() {
+        this.level.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(this.level.coins.indexOf(coin), 1);
+                this.collectedCoins += 20;
+                this.coinBar.setPercentage(this.collectedCoins);
+            }
+        });
+    }
+
     run() {
-        setInterval(() => {
+        let worldRunInterval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
         }, 200);
+        let worldCheckPickUpCoinsInterval = setInterval(() => {
+            this.pickUpCollectables();
+        }, 50);
+        intervalIds.push(worldRunInterval);
+        intervalIds.push(worldCheckPickUpCoinsInterval);
     }
     checkThrowObjects() {
         if (this.keyboard.D) {

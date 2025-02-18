@@ -13,6 +13,9 @@ class CollectableObject extends MovableObject {
         this.width = 160;
         this.height = 160;
         this.x = 420 + Math.random() * 800 * coinCounter;
+        if (this.x > 3500) {
+            this.x = 3200;
+        }
         this.y = 100 + Math.random() * 130;
         coinCounter++;
         this.animate();
