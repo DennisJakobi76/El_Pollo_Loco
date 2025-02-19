@@ -33,7 +33,7 @@ class ThrowableObject extends CollectableObject {
         this.y = y;
         this.height = 60;
         this.width = 50;
-        this.characterLooksRight = true;
+        this.lyingOnTheGround = false;
         this.world = world;
         this.throw();
     }
@@ -46,6 +46,7 @@ class ThrowableObject extends CollectableObject {
                 this.playFlyingBottleAnimation();
             } else {
                 this.playBottleOnGroundAnimation();
+                this.lyingOnTheGround = true;
             }
         }, 30);
     }
@@ -69,6 +70,9 @@ class ThrowableObject extends CollectableObject {
     }
 
     playBottleSplashAnimation() {
-        this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
+        let bottleSplashInterval = setInterval(() => {
+            this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
+        }, 50);
+        intervalIds.push(bottleSplashInterval);
     }
 }

@@ -76,12 +76,50 @@ class World {
         this.ctx.restore();
     }
 
+    handleCollisionWithCharacter(enemy) {
+        if (this.character.isColliding(enemy) && !enemy.killed) {
+            this.character.hit();
+            this.healthBar.setPercentage(this.character.energy);
+        }
+    }
+
+    showDyingChicken(enemy) {
+        if (enemy.dyingAnimationCounter == 0) {
+            enemy.playChickenDyingAnimation();
+            enemy.dyingAnimationCounter++;
+            enemy.stopAnimation();
+            setTimeout(() => {
+                this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+            }, 1000);
+        }
+    }
+
+    showSplashingBottle(bottle) {
+        bottle.playBottleSplashAnimation();
+        setTimeout(() => {
+            this.bottles.splice(this.bottles.indexOf(bottle), 1);
+        }, 350);
+    }
+
+    handleCollisionWithBottle(enemy, bottle) {
+        if (bottle.isColliding(enemy) && !enemy.killed && !bottle.lyingOnTheGround) {
+            this.showSplashingBottle(bottle);
+
+            if (enemy instanceof Chicken) {
+                enemy.killed = true;
+                this.showDyingChicken(enemy);
+            }
+
+            // this.bottleBar.setPercentage(this.bottles.length);
+        }
+    }
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
-            }
+            this.handleCollisionWithCharacter(enemy);
+
+            this.bottles.forEach((bottle) => {
+                this.handleCollisionWithBottle(enemy, bottle);
+            });
         });
     }
 
@@ -99,13 +137,14 @@ class World {
         let worldRunInterval = setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 150);
         let worldCheckPickUpCoinsInterval = setInterval(() => {
             this.pickUpCollectables();
         }, 50);
         intervalIds.push(worldRunInterval);
         intervalIds.push(worldCheckPickUpCoinsInterval);
     }
+
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle;

@@ -22,6 +22,9 @@ class Chicken extends MovableObject {
         this.x = 400 + Math.random() * 1000 * chickenCounter * 5;
         this.y = 362;
         this.speed = 0.15 + Math.random() * 0.75;
+        this.killed = false;
+        this.dyingAnimationCounter = 0;
+        this.animationIntervals = [];
         this.animate();
     }
 
@@ -35,6 +38,14 @@ class Chicken extends MovableObject {
         }, 100);
         intervalIds.push(chickenMoveLeftInterval);
         intervalIds.push(chickenWalkInterval);
+        this.animationIntervals.push(chickenMoveLeftInterval);
+        this.animationIntervals.push(chickenWalkInterval);
+    }
+
+    stopAnimation() {
+        this.animationIntervals.forEach((interval) => {
+            clearInterval(interval);
+        });
     }
 
     playChickenDyingAnimation() {
