@@ -78,8 +78,12 @@ class World {
 
     handleCollisionWithCharacter(enemy) {
         if (this.character.isColliding(enemy) && !enemy.killed) {
-            this.character.hit();
-            this.healthBar.setPercentage(this.character.energy);
+            if (this.character.checkCharacterJumpAttacks() && !(enemy instanceof SmallChicken)) {
+                this.killOneEnemy(enemy);
+            } else {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+            }
         }
     }
 
@@ -101,22 +105,23 @@ class World {
         }, 350);
     }
 
+    killOneEnemy(enemy) {
+        if (enemy instanceof Chicken) {
+            enemy.killed = true;
+            this.showDyingChicken(enemy);
+        }
+    }
+
     handleCollisionWithBottle(enemy, bottle) {
         if (bottle.isColliding(enemy) && !enemy.killed && !bottle.lyingOnTheGround) {
             this.showSplashingBottle(bottle);
-
-            if (enemy instanceof Chicken) {
-                enemy.killed = true;
-                this.showDyingChicken(enemy);
-            }
-
+            this.killOneEnemy(enemy);
             // this.bottleBar.setPercentage(this.bottles.length);
         }
     }
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             this.handleCollisionWithCharacter(enemy);
-
             this.bottles.forEach((bottle) => {
                 this.handleCollisionWithBottle(enemy, bottle);
             });
@@ -134,13 +139,18 @@ class World {
     }
 
     run() {
-        let worldRunInterval = setInterval(() => {
+        let worldCheckCollisionsInterval = setInterval(() => {
             this.checkCollisions();
+        }, 50);
+
+        let worldRunInterval = setInterval(() => {
             this.checkThrowObjects();
         }, 150);
         let worldCheckPickUpCoinsInterval = setInterval(() => {
             this.pickUpCollectables();
         }, 50);
+
+        intervalIds.push(worldCheckCollisionsInterval);
         intervalIds.push(worldRunInterval);
         intervalIds.push(worldCheckPickUpCoinsInterval);
     }

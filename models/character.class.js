@@ -5,6 +5,7 @@ class Character extends MovableObject {
     speed = 10;
     idleStartTime = Date.now();
     died = false;
+    jumpAttacks = false;
 
     world;
     offset = {
@@ -99,6 +100,7 @@ class Character extends MovableObject {
 
     checkAndPlayMovementAnimation() {
         let characterCheckAnimationInterval = setInterval(() => {
+            this.checkCharacterJumpAttacks();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
                 this.moveRight();
@@ -121,6 +123,15 @@ class Character extends MovableObject {
     jump() {
         this.fallSpeed = 20;
         this.resetIdleTimer();
+    }
+
+    checkCharacterJumpAttacks() {
+        if (this.y > -20 && this.fallSpeed < 0) {
+            this.jumpAttacks = true;
+        } else {
+            this.jumpAttacks = false;
+        }
+        return this.jumpAttacks;
     }
 
     playWalkingAnimation() {
