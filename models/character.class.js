@@ -194,10 +194,4 @@ class Character extends MovableObject {
         }, 160);
         intervalIds.push(characterIdleInterval);
     }
-
-    endAllIntervals() {
-        intervalIds.forEach((interval) => {
-            clearInterval(interval);
-        });
-    }
 }
