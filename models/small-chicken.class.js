@@ -1,4 +1,4 @@
-class SmallChicken extends MovableObject {
+class SmallChicken extends Chicken {
     IMAGES_WALKING = [
         "../assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
         "../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -23,17 +23,5 @@ class SmallChicken extends MovableObject {
         this.y = 384;
         this.speed = 0.15 + Math.random() * 0.75;
         this.animate();
-    }
-
-    animate() {
-        let smallChickenMovelLeftInterval = setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-
-        let smallChickenWalkInterval = setInterval(() => {
-            this.playAnimationInfinite(this.IMAGES_WALKING);
-        }, 100);
-        intervalIds.push(smallChickenMovelLeftInterval);
-        intervalIds.push(smallChickenWalkInterval);
     }
 }

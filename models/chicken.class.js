@@ -36,4 +36,8 @@ class Chicken extends MovableObject {
         intervalIds.push(chickenMoveLeftInterval);
         intervalIds.push(chickenWalkInterval);
     }
+
+    playChickenDyingAnimation() {
+        this.img.src = this.IMAGES_DEAD[0];
+    }
 }
