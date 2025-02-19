@@ -10,6 +10,7 @@ class World {
     bottleBar = new StatusBarBottle();
     bottles = [];
     collectedCoins = 0;
+    lastCollisionTime = 0;
 
     constructor(canvas, keyboard) {
         this.canvas = canvas;
@@ -81,8 +82,12 @@ class World {
             if (this.character.checkCharacterJumpAttacks() && !(enemy instanceof SmallChicken) && !(enemy instanceof Endboss)) {
                 this.killOneEnemy(enemy);
             } else {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
+                const currentTime = new Date().getTime();
+                if (currentTime - this.lastCollisionTime > 1000) {
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy);
+                    this.lastCollisionTime = currentTime;
+                }
             }
         }
     }
