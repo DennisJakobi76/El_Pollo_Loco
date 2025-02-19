@@ -163,6 +163,7 @@ class World {
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle;
+
             if (this.character.otherDirection) {
                 bottle = new ThrowableObject(this.character.x - 12, this.character.y + 120);
             } else {

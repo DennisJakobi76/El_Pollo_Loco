@@ -35,10 +35,12 @@ class ThrowableObject extends CollectableObject {
         this.width = 50;
         this.lyingOnTheGround = false;
         this.world = world;
+        this.flightDirection = null;
         this.throw();
     }
 
     throw() {
+        this.flightDirection = this.world.character.otherDirection ? -1 : 1;
         this.fallSpeed = 15;
         this.applyGravity();
         this.intervalId = setInterval(() => {
@@ -53,11 +55,7 @@ class ThrowableObject extends CollectableObject {
 
     playFlyingBottleAnimation() {
         this.playAnimationInfinite(this.IMAGES_ROTATION);
-        if (this.world.character.otherDirection) {
-            this.x -= 10;
-        } else {
-            this.x += 10;
-        }
+        this.x += this.flightDirection * 10;
     }
 
     playBottleOnGroundAnimation() {
