@@ -78,7 +78,7 @@ class World {
 
     handleCollisionWithCharacter(enemy) {
         if (this.character.isColliding(enemy) && !enemy.killed) {
-            if (this.character.checkCharacterJumpAttacks() && !(enemy instanceof SmallChicken)) {
+            if (this.character.checkCharacterJumpAttacks() && !(enemy instanceof SmallChicken) && !(enemy instanceof Endboss)) {
                 this.killOneEnemy(enemy);
             } else {
                 this.character.hit();
