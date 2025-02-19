@@ -78,6 +78,7 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
+        if (this.isHurt()) return;
         this.energy -= 20;
         if (this.energy <= 0) {
             this.energy = 0;
@@ -99,7 +100,11 @@ class MovableObject extends DrawableObject {
             return false;
         }
     }
-
+    endAllIntervals() {
+        intervalIds.forEach((interval) => {
+            clearInterval(interval);
+        });
+    }
     resetIdleTimer() {
         this.idleStartTime = Date.now();
     }

@@ -114,6 +114,8 @@ class World {
         if (enemy instanceof Chicken) {
             enemy.killed = true;
             this.showDyingChicken(enemy);
+        } else if (enemy instanceof Endboss) {
+            enemy.hit();
         }
     }
 

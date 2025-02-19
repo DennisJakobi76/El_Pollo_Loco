@@ -42,19 +42,64 @@ class Endboss extends MovableObject {
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACKING);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.height = 400;
         this.width = 280;
         this.x = 4000;
         this.y = 56;
         this.speed = 0.15 + Math.random() * 0.75;
+        this.bossIntervals = [];
         this.animate();
     }
 
     animate() {
         // this.moveLeft();
+        this.playBossAlertAnimation();
+        this.playBossHurtAnimation();
+        this.playBossDyingAnimation();
+    }
+
+    playBossAlertAnimation() {
         let endbossAlertInterval = setInterval(() => {
             this.playAnimationInfinite(this.IMAGES_ALERT);
         }, 200);
         intervalIds.push(endbossAlertInterval);
+        this.bossIntervals.push(endbossAlertInterval);
+    }
+
+    playBossHurtAnimation() {
+        let bossHurtInterval = setInterval(() => {
+            if (this.isHurt()) {
+                this.playAnimationInfinite(this.IMAGES_HURT);
+                this.resetIdleTimer();
+            }
+        }, 100);
+        intervalIds.push(bossHurtInterval);
+        this.bossIntervals.push(bossHurtInterval);
+    }
+
+    playBossDyingAnimation() {
+        let BossDyingInterval = setInterval(() => {
+            if (this.isDead() && !this.died) {
+                this.playAnimationOnce(this.IMAGES_DEAD);
+                this.resetIdleTimer();
+                setTimeout(() => {
+                    this.died = true;
+                    this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
+                    this.endBossIntervals();
+                }, 800);
+            }
+        }, 50);
+        intervalIds.push(BossDyingInterval);
+        this.bossIntervals.push(BossDyingInterval);
+    }
+
+    endBossIntervals() {
+        this.bossIntervals.forEach((interval) => {
+            clearInterval(interval);
+        });
     }
 }
