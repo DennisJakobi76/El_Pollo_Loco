@@ -127,7 +127,6 @@ class World {
         if (bottle.isColliding(enemy) && !enemy.killed && !bottle.lyingOnTheGround) {
             this.showSplashingBottle(bottle);
             this.killOneEnemy(enemy);
-            // this.bottleBar.setPercentage(this.bottles.length);
         }
     }
     checkCollisions() {
@@ -151,6 +150,15 @@ class World {
             if (this.character.isColliding(bottle)) {
                 if (this.collectedBottles < 100) {
                     this.bottlesAtStart.splice(this.bottlesAtStart.indexOf(bottle), 1);
+                    this.collectedBottles += 20;
+                    this.bottleBar.setPercentage(this.collectedBottles);
+                }
+            }
+        });
+        this.bottles.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                if (this.collectedBottles < 100 && this.bottles.length > 0) {
+                    this.bottles.splice(this.bottles.indexOf(bottle), 1);
                     this.collectedBottles += 20;
                     this.bottleBar.setPercentage(this.collectedBottles);
                 }
