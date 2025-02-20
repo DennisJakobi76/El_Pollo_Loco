@@ -10,6 +10,7 @@ class World {
     bottleBar = new StatusBarBottle();
     bottles = [];
     collectedCoins = 0;
+    collectedBottles = 0;
     lastCollisionTime = 0;
 
     constructor(canvas, keyboard) {
@@ -32,6 +33,7 @@ class World {
         this.addObjectsFromArrayToMap(this.level.clouds);
         this.addObjectsFromArrayToMap(this.level.coins);
         this.addObjectsFromArrayToMap(this.level.enemies);
+        this.addObjectsFromArrayToMap(this.level.bottles);
         this.addObjectsFromArrayToMap(this.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -143,6 +145,15 @@ class World {
                 this.coinBar.setPercentage(this.collectedCoins);
             }
         });
+        this.level.bottles.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                if (this.collectedBottles < 100) {
+                    this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                    this.collectedBottles += 20;
+                    this.bottleBar.setPercentage(this.collectedBottles);
+                }
+            }
+        });
     }
 
     run() {
@@ -164,15 +175,26 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle;
+            console.log(this.level.bottles.length);
 
-            if (this.character.otherDirection) {
-                bottle = new ThrowableObject(this.character.x - 12, this.character.y + 120);
-            } else {
-                bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+            if (this.collectedBottles > 0) {
+                let bottle;
+                if (this.character.otherDirection) {
+                    bottle = new ThrowableObject(this.character.x - 12, this.character.y + 120);
+                } else {
+                    bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+                }
+                this.bottles.push(bottle);
+                this.handleThrownBottle();
             }
+        }
+    }
 
-            this.bottles.push(bottle);
+    handleThrownBottle() {
+        if (this.collectedBottles > 0) {
+            // this.level.bottles.splice(0, 1);
+            this.collectedBottles -= 20;
+            this.bottleBar.setPercentage(this.collectedBottles);
         }
     }
 }
