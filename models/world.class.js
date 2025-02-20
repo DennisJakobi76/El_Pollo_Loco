@@ -9,6 +9,7 @@ class World {
     coinBar = new StatusBarCoin();
     bottleBar = new StatusBarBottle();
     bottles = [];
+    bottlesAtStart = [];
     collectedCoins = 0;
     collectedBottles = 0;
     lastCollisionTime = 0;
@@ -17,6 +18,7 @@ class World {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
+        this.addBottlesToArray(this.bottlesAtStart, 10);
         this.draw();
         this.setWorld();
         this.run();
@@ -32,7 +34,7 @@ class World {
         this.addObjectsFromArrayToMap(this.level.backgroundObjects);
         this.addObjectsFromArrayToMap(this.level.clouds);
         this.addObjectsFromArrayToMap(this.level.coins);
-        this.addObjectsFromArrayToMap(this.level.bottles);
+        this.addObjectsFromArrayToMap(this.bottlesAtStart);
         this.addObjectsFromArrayToMap(this.bottles);
         this.addObjectsFromArrayToMap(this.level.enemies);
 
@@ -145,10 +147,10 @@ class World {
                 this.coinBar.setPercentage(this.collectedCoins);
             }
         });
-        this.level.bottles.forEach((bottle) => {
+        this.bottlesAtStart.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.collectedBottles < 100) {
-                    this.level.bottles.splice(this.level.bottles.indexOf(bottle), 1);
+                    this.bottlesAtStart.splice(this.bottlesAtStart.indexOf(bottle), 1);
                     this.collectedBottles += 20;
                     this.bottleBar.setPercentage(this.collectedBottles);
                 }
@@ -175,8 +177,6 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            console.log(this.level.bottles.length);
-
             if (this.collectedBottles > 0) {
                 let bottle;
                 if (this.character.otherDirection) {
@@ -192,9 +192,14 @@ class World {
 
     handleThrownBottle() {
         if (this.collectedBottles > 0) {
-            // this.level.bottles.splice(0, 1);
             this.collectedBottles -= 20;
             this.bottleBar.setPercentage(this.collectedBottles);
+        }
+    }
+
+    addBottlesToArray(array, bottleCounter) {
+        for (let i = 0; i < bottleCounter; i++) {
+            array.push(new ThrowableObject(Math.floor(Math.random() * 2000) + 200, 365));
         }
     }
 }
