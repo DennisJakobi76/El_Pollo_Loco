@@ -6,7 +6,7 @@ class Character extends MovableObject {
     idleStartTime = Date.now();
     died = false;
     jumpAttacks = false;
-
+    throws = false;
     world;
     offset = {
         top: 100,
@@ -14,6 +14,8 @@ class Character extends MovableObject {
         left: 26,
         right: 26,
     };
+
+    IMAGES_THROWING = ["../assets/img/2_character_pepe/2_walk/W-22.png"];
 
     IMAGES_WALKING = [
         "../assets/img/2_character_pepe/2_walk/W-21.png",
@@ -76,6 +78,7 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_THROWING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_IDLE);
@@ -96,6 +99,7 @@ class Character extends MovableObject {
         this.playHurtAnimation();
         this.playDyingAnimation();
         this.playIdleAnimation();
+        this.playThrowingAnimation();
     }
 
     checkAndPlayMovementAnimation() {
@@ -113,6 +117,10 @@ class Character extends MovableObject {
                 this.jump();
             }
             if (this.world.keyboard.D) {
+                this.throws = true;
+            }
+            if (!this.world.keyboard.D) {
+                this.throws = false;
                 this.resetIdleTimer();
             }
             this.world.camera_x = -this.x + 100;
@@ -154,6 +162,20 @@ class Character extends MovableObject {
             }
         }, 150);
         intervalIds.push(characterJumpingInterval);
+    }
+
+    isThrowing() {
+        return this.throws;
+    }
+
+    playThrowingAnimation() {
+        let characterThrowingInterval = setInterval(() => {
+            if (this.isThrowing()) {
+                this.playAnimationOnce(this.IMAGES_THROWING);
+                this.resetIdleTimer();
+            }
+        }, 100);
+        intervalIds.push(characterThrowingInterval);
     }
 
     playHurtAnimation() {
