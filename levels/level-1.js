@@ -34,12 +34,19 @@ clouds = [
 ];
 
 coins = [new CollectableObject(), new CollectableObject(), new CollectableObject(), new CollectableObject(), new CollectableObject()];
-
+bottles = [];
 backgroundObjects = [];
 
-addBackgroundObjectsToArray(4, backgroundObjects, -719);
+let level1 = new Level(enemies, clouds, backgroundObjects, coins, bottles);
 
-let level1 = new Level(enemies, clouds, backgroundObjects, coins);
+addBackgroundObjectsToArray(4, backgroundObjects, -719);
+addBottlesToArray(bottles, 10);
+
+function addBottlesToArray(array, bottleCounter) {
+    for (let i = 0; i < bottleCounter; i++) {
+        array.push(new ThrowableObject(Math.floor(Math.random() * 2000) + 200, 365));
+    }
+}
 
 function addBackgroundObjectsToArray(screenCounter, array, worldSize) {
     for (let i = 0; i < screenCounter; i++) {

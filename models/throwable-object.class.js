@@ -34,43 +34,43 @@ class ThrowableObject extends CollectableObject {
         this.height = 60;
         this.width = 50;
         this.lyingOnTheGround = false;
-        this.world = world;
+        // this.world = world;
         this.flightDirection = null;
-        this.throw();
+        // this.throw();
     }
 
-    throw() {
-        this.flightDirection = this.world.character.otherDirection ? -1 : 1;
-        this.fallSpeed = 15;
-        this.applyGravity();
-        this.intervalId = setInterval(() => {
-            if (this.isAboveGround()) {
-                this.playFlyingBottleAnimation();
-            } else {
-                this.playBottleOnGroundAnimation();
-                this.lyingOnTheGround = true;
-            }
-        }, 30);
-    }
+    // throw() {
+    //     this.flightDirection = this.world.character.otherDirection ? -1 : 1;
+    //     this.fallSpeed = 15;
+    //     this.applyGravity();
+    //     this.intervalId = setInterval(() => {
+    //         if (this.isAboveGround()) {
+    //             this.playFlyingBottleAnimation();
+    //         } else {
+    //             this.playBottleOnGroundAnimation();
+    //             this.lyingOnTheGround = true;
+    //         }
+    //     }, 30);
+    // }
 
-    playFlyingBottleAnimation() {
-        this.playAnimationInfinite(this.IMAGES_ROTATION);
-        this.x += this.flightDirection * 10;
-    }
+    // playFlyingBottleAnimation() {
+    //     this.playAnimationInfinite(this.IMAGES_ROTATION);
+    //     this.x += this.flightDirection * 10;
+    // }
 
-    playBottleOnGroundAnimation() {
-        const randomIndex = Math.floor(Math.random() * this.IMAGES_BOTTLE_ON_GROUND.length);
-        this.playAnimationOnce([this.IMAGES_BOTTLE_ON_GROUND[randomIndex]]);
-        this.x += 0;
-        setTimeout(() => {
-            clearInterval(this.intervalId);
-        }, 60);
-    }
+    // playBottleOnGroundAnimation() {
+    //     const randomIndex = Math.floor(Math.random() * this.IMAGES_BOTTLE_ON_GROUND.length);
+    //     this.playAnimationOnce([this.IMAGES_BOTTLE_ON_GROUND[randomIndex]]);
+    //     this.x += 0;
+    //     setTimeout(() => {
+    //         clearInterval(this.intervalId);
+    //     }, 60);
+    // }
 
-    playBottleSplashAnimation() {
-        let bottleSplashInterval = setInterval(() => {
-            this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
-        }, 50);
-        intervalIds.push(bottleSplashInterval);
-    }
+    // playBottleSplashAnimation() {
+    //     let bottleSplashInterval = setInterval(() => {
+    //         this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
+    //     }, 50);
+    //     intervalIds.push(bottleSplashInterval);
+    // }
 }
