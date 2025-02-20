@@ -50,6 +50,7 @@ class Endboss extends MovableObject {
         this.width = 280;
         this.x = 4000;
         this.y = 56;
+        this.killed = false;
         this.speed = 0.15 + Math.random() * 0.75;
         this.bossIntervals = [];
         this.animate();
@@ -83,11 +84,11 @@ class Endboss extends MovableObject {
 
     playBossDyingAnimation() {
         let BossDyingInterval = setInterval(() => {
-            if (this.isDead() && !this.died) {
+            if (this.isDead() && !this.killed) {
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.resetIdleTimer();
                 setTimeout(() => {
-                    this.died = true;
+                    this.killed = true;
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
                     this.endBossIntervals();
                 }, 800);
