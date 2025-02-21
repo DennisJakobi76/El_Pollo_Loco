@@ -107,13 +107,20 @@ class Character extends MovableObject {
             this.checkCharacterJumpAttacks();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.otherDirection = false;
+                runningSound.play();
+                if (this.isAboveGround()) {
+                    runningSound.pause();
+                }
                 this.moveRight();
             }
             if (this.world.keyboard.LEFT && this.x > -610) {
                 this.otherDirection = true;
+                runningSound.play();
                 this.moveLeft();
             }
             if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
+                runningSound.pause();
+                characterJumpSound.play();
                 this.jump();
             }
             if (this.world.keyboard.D) {
@@ -170,6 +177,7 @@ class Character extends MovableObject {
     playThrowingAnimation() {
         let characterThrowingInterval = setInterval(() => {
             if (this.isThrowing()) {
+                throwBottleSound.play();
                 this.playAnimationOnce(this.IMAGES_THROWING);
                 this.resetIdleTimer();
             }
@@ -190,9 +198,17 @@ class Character extends MovableObject {
     playDyingAnimation() {
         let characterDyingInterval = setInterval(() => {
             if (this.isDead() && !this.died) {
+                runningSound.pause();
+                snoringSound.pause();
+                characterDyingSound.play();
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.resetIdleTimer();
                 setTimeout(() => {
+                    characterDeadSound.play();
+                }, 1000);
+
+                setTimeout(() => {
+                    gameMusic.pause();
                     this.died = true;
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
                     this.endAllIntervals();
@@ -206,9 +222,11 @@ class Character extends MovableObject {
         let idleTimeout = 10 * 1000;
         let characterIdleInterval = setInterval(() => {
             if (!this.isAboveGround() && !this.isDead() && !this.isHurt() && this.isWaiting()) {
+                runningSound.pause();
                 if (Date.now() - this.idleStartTime < idleTimeout) {
                     this.playAnimationInfinite(this.IMAGES_IDLE);
                 } else {
+                    snoringSound.play();
                     this.playAnimationInfinite(this.IMAGES_LONG_IDLE);
                 }
             }

@@ -85,13 +85,21 @@ class Endboss extends MovableObject {
     playBossDyingAnimation() {
         let BossDyingInterval = setInterval(() => {
             if (this.isDead() && !this.killed) {
+                setTimeout(() => {
+                    senioraGallinaDyingSound.play();
+                }, 600);
+
                 this.playAnimationOnce(this.IMAGES_DEAD);
                 this.resetIdleTimer();
                 setTimeout(() => {
                     this.killed = true;
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
-                    this.endBossIntervals();
+                    this.endAllIntervals();
+                    gameMusic.pause();
                 }, 800);
+                setTimeout(() => {
+                    mexicanHatSound.play();
+                }, 1600);
             }
         }, 50);
         intervalIds.push(BossDyingInterval);
