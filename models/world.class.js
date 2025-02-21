@@ -170,14 +170,12 @@ class World {
         let worldCheckCollisionsInterval = setInterval(() => {
             this.checkCollisions();
         }, 50);
-
         let worldRunInterval = setInterval(() => {
             this.checkThrowObjects();
         }, 150);
         let worldCheckPickUpCoinsInterval = setInterval(() => {
             this.pickUpCollectables();
         }, 50);
-
         intervalIds.push(worldCheckCollisionsInterval);
         intervalIds.push(worldRunInterval);
         intervalIds.push(worldCheckPickUpCoinsInterval);
