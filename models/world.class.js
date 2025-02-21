@@ -21,6 +21,7 @@ class World {
         this.addBottlesToArray(this.bottlesAtStart, 10);
         this.draw();
         this.setWorld();
+        gameMusic.play();
         this.run();
     }
 
@@ -88,6 +89,7 @@ class World {
             } else {
                 const currentTime = new Date().getTime();
                 if (currentTime - this.lastCollisionTime > 1000) {
+                    characterHitSound.play();
                     this.character.hit();
                     this.healthBar.setPercentage(this.character.energy);
                     this.lastCollisionTime = currentTime;
@@ -117,14 +119,17 @@ class World {
     killOneEnemy(enemy) {
         if (enemy instanceof Chicken) {
             enemy.killed = true;
+            chickenHitSound.play();
             this.showDyingChicken(enemy);
         } else if (enemy instanceof Endboss) {
+            senioraGallinaHitSound.play();
             enemy.hit();
         }
     }
 
     handleCollisionWithBottle(enemy, bottle) {
         if (bottle.isColliding(enemy) && !enemy.killed && !bottle.lyingOnTheGround) {
+            bottleSplashSound.play();
             this.showSplashingBottle(bottle);
             this.killOneEnemy(enemy);
         }
@@ -141,6 +146,7 @@ class World {
     pickUpCollectables() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
+                pickUpItemSound.play();
                 this.level.coins.splice(this.level.coins.indexOf(coin), 1);
                 this.collectedCoins += 20;
                 this.coinBar.setPercentage(this.collectedCoins);
@@ -149,6 +155,7 @@ class World {
         this.bottlesAtStart.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.collectedBottles < 100) {
+                    pickUpItemSound.play();
                     this.bottlesAtStart.splice(this.bottlesAtStart.indexOf(bottle), 1);
                     this.collectedBottles += 20;
                     this.bottleBar.setPercentage(this.collectedBottles);
@@ -158,6 +165,7 @@ class World {
         this.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.collectedBottles < 100 && this.bottles.length > 0) {
+                    pickUpItemSound.play();
                     this.bottles.splice(this.bottles.indexOf(bottle), 1);
                     this.collectedBottles += 20;
                     this.bottleBar.setPercentage(this.collectedBottles);

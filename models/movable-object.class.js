@@ -107,5 +107,6 @@ class MovableObject extends DrawableObject {
     }
     resetIdleTimer() {
         this.idleStartTime = Date.now();
+        snoringSound.pause();
     }
 }
