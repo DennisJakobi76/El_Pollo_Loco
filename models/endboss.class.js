@@ -52,6 +52,8 @@ class Endboss extends MovableObject {
         this.y = 56;
         this.killed = false;
         this.speed = 0.15 + Math.random() * 0.75;
+        this.nearCharacter = false;
+        this.characterInAttackRange = false;
         this.bossIntervals = [];
         this.animate();
     }
@@ -61,11 +63,17 @@ class Endboss extends MovableObject {
         this.playBossAlertAnimation();
         this.playBossHurtAnimation();
         this.playBossDyingAnimation();
+        // this.playBossWalkingAnimation();
     }
 
     playBossAlertAnimation() {
         let endbossAlertInterval = setInterval(() => {
-            this.playAnimationInfinite(this.IMAGES_ALERT);
+            if (this.nearCharacter) {
+                this.playAnimationInfinite(this.IMAGES_ALERT);
+            }
+            // else {
+            //     this.playAnimationInfinite(this.IMAGES_WALKING);
+            // }
         }, 200);
         intervalIds.push(endbossAlertInterval);
         this.bossIntervals.push(endbossAlertInterval);
@@ -104,6 +112,14 @@ class Endboss extends MovableObject {
         }, 50);
         intervalIds.push(BossDyingInterval);
         this.bossIntervals.push(BossDyingInterval);
+    }
+
+    playBossWalkingAnimation() {
+        let bossWalkingInterval = setInterval(() => {
+            this.playAnimationInfinite(this.IMAGES_WALKING);
+        }, 100);
+        intervalIds.push(bossWalkingInterval);
+        this.bossIntervals.push(bossWalkingInterval);
     }
 
     endBossIntervals() {

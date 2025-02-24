@@ -100,6 +100,7 @@ class MovableObject extends DrawableObject {
             return false;
         }
     }
+
     endAllIntervals() {
         intervalIds.forEach((interval) => {
             clearInterval(interval);

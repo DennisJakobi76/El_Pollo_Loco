@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    endBoss = null;
     level = level1;
     canvas;
     ctx;
@@ -19,6 +20,7 @@ class World {
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
         this.addBottlesToArray(this.bottlesAtStart, 10);
+        this.endBoss = this.level.enemies[this.level.enemies.length - 1];
         this.draw();
         this.setWorld();
         gameMusic.play();
@@ -184,9 +186,25 @@ class World {
         let worldCheckPickUpCoinsInterval = setInterval(() => {
             this.pickUpCollectables();
         }, 50);
+        let worldCheckCharacterNearEndbossInterval = setInterval(() => {
+            this.checkCharacterNearEndboss();
+        }, 50);
         intervalIds.push(worldCheckCollisionsInterval);
         intervalIds.push(worldRunInterval);
         intervalIds.push(worldCheckPickUpCoinsInterval);
+        intervalIds.push(worldCheckCharacterNearEndbossInterval);
+    }
+
+    checkCharacterNearEndboss() {
+        let distanceCharacterToEndboss = Math.abs(this.character.x + this.character.offset.right - (this.endBoss.x - this.endBoss.offset.left));
+
+        console.log("Distanz:  " + distanceCharacterToEndboss);
+
+        if (distanceCharacterToEndboss <= 450) {
+            this.endBoss.nearCharacter = true;
+        } else {
+            this.endBoss.nearCharacter = false;
+        }
     }
 
     checkThrowObjects() {

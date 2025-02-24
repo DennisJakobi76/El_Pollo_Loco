@@ -27,6 +27,6 @@ snoringSound.volume = 0.2;
 pickUpItemSound.volume = 0.2;
 runningSound.volume = 0.2;
 throwBottleSound.volume = 0.2;
-chickenHitSound.volume = 0.3;
+chickenHitSound.volume = 0.5;
 characterJumpSound.volume = 0.2;
 bottleSplashSound.volume = 0.2;
