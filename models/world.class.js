@@ -200,10 +200,20 @@ class World {
 
         console.log("Distanz:  " + distanceCharacterToEndboss);
 
-        if (distanceCharacterToEndboss <= 450) {
+        if (distanceCharacterToEndboss <= 450 && distanceCharacterToEndboss >= 350) {
             this.endBoss.nearCharacter = true;
         } else {
             this.endBoss.nearCharacter = false;
+        }
+        if (distanceCharacterToEndboss < 350 && distanceCharacterToEndboss >= 3) {
+            this.endBoss.notCloseEnoughToAttackCharacter = true;
+        } else {
+            this.endBoss.notCloseEnoughToAttackCharacter = false;
+        }
+        if (distanceCharacterToEndboss < 3) {
+            this.endBoss.characterInAttackRange = true;
+        } else {
+            this.endBoss.characterInAttackRange = false;
         }
     }
 
@@ -217,6 +227,7 @@ class World {
                     bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
                 }
                 this.bottles.push(bottle);
+                throwBottleSound.play();
                 this.handleThrownBottle();
             }
         }

@@ -177,7 +177,6 @@ class Character extends MovableObject {
     playThrowingAnimation() {
         let characterThrowingInterval = setInterval(() => {
             if (this.isThrowing()) {
-                throwBottleSound.play();
                 this.playAnimationOnce(this.IMAGES_THROWING);
                 this.resetIdleTimer();
             }
