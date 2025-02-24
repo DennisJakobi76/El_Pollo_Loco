@@ -197,9 +197,6 @@ class World {
 
     checkCharacterNearEndboss() {
         let distanceCharacterToEndboss = Math.abs(this.character.x + this.character.offset.right - (this.endBoss.x - this.endBoss.offset.left));
-
-        console.log("Distanz:  " + distanceCharacterToEndboss);
-
         if (distanceCharacterToEndboss <= 450 && distanceCharacterToEndboss >= 350) {
             this.endBoss.nearCharacter = true;
         } else {
