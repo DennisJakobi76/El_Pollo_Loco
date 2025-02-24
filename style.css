@@ -21,6 +21,59 @@ canvas {
     display: block;
 }
 
+.screen-wrapper {
+    width: 860px;
+    height: 480px;
+}
+
+#start-screen-wrapper {
+    background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_1.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.music-icon {
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+#mute-icon {
+    z-index: 1;
+}
+
+#music-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-button {
+    width: 200px;
+    height: 50px;
+    background-image: linear-gradient(to bottom, #ffff00, #ffa07a);
+    border: 2px solid rgb(122, 52, 5);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 50px;
+    position: absolute;
+    right: 50%;
+    bottom: 25%;
+    transform: translateX(50%);
+    font-family: "Press Start 2P", cursive;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(122, 52, 5);
+}
+
+.start-button:hover::before {
+    border-color: transparent transparent transparent #ffff66;
+}
+
 /* @media only screen and (max-width: 720px) {
 }
 canvas {
@@ -32,3 +85,7 @@ canvas {
         height: 100vh;
     }
 } */
+
+.d-none {
+    display: none;
+}

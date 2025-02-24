@@ -1,3 +1,5 @@
+let level1;
+
 enemies = [
     new Chicken(),
     new Chicken(),
@@ -37,9 +39,10 @@ coins = [new CollectableObject(), new CollectableObject(), new CollectableObject
 
 backgroundObjects = [];
 
-let level1 = new Level(enemies, clouds, backgroundObjects, coins);
-
-addBackgroundObjectsToArray(4, backgroundObjects, -719);
+function initLevel() {
+    addBackgroundObjectsToArray(4, backgroundObjects, -719);
+    level1 = new Level(enemies, clouds, backgroundObjects, coins);
+}
 
 function addBackgroundObjectsToArray(screenCounter, array, worldSize) {
     for (let i = 0; i < screenCounter; i++) {
