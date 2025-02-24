@@ -35,7 +35,7 @@ class Endboss extends MovableObject {
     offset = {
         top: 70,
         bottom: 20,
-        left: 10,
+        left: 22,
         right: 10,
     };
 
@@ -51,19 +51,20 @@ class Endboss extends MovableObject {
         this.x = 4000;
         this.y = 56;
         this.killed = false;
-        this.speed = 0.15 + Math.random() * 0.75;
+        this.speed = 4;
         this.nearCharacter = false;
+        this.notCloseEnoughToAttackCharacter = false;
         this.characterInAttackRange = false;
         this.bossIntervals = [];
         this.animate();
     }
 
     animate() {
-        // this.moveLeft();
         this.playBossAlertAnimation();
         this.playBossHurtAnimation();
         this.playBossDyingAnimation();
-        // this.playBossWalkingAnimation();
+        this.playBossWalkingAnimation();
+        this.playBossAttackingAnimation();
     }
 
     playBossAlertAnimation() {
@@ -71,9 +72,6 @@ class Endboss extends MovableObject {
             if (this.nearCharacter) {
                 this.playAnimationInfinite(this.IMAGES_ALERT);
             }
-            // else {
-            //     this.playAnimationInfinite(this.IMAGES_WALKING);
-            // }
         }, 200);
         intervalIds.push(endbossAlertInterval);
         this.bossIntervals.push(endbossAlertInterval);
@@ -116,10 +114,23 @@ class Endboss extends MovableObject {
 
     playBossWalkingAnimation() {
         let bossWalkingInterval = setInterval(() => {
-            this.playAnimationInfinite(this.IMAGES_WALKING);
+            if (this.notCloseEnoughToAttackCharacter && !this.isHurt() && !this.isDead()) {
+                this.playAnimationInfinite(this.IMAGES_WALKING);
+                this.moveLeft();
+            }
         }, 100);
         intervalIds.push(bossWalkingInterval);
         this.bossIntervals.push(bossWalkingInterval);
+    }
+
+    playBossAttackingAnimation() {
+        let bossAttackingInterval = setInterval(() => {
+            if (this.characterInAttackRange) {
+                this.playAnimationOnce(this.IMAGES_ATTACKING);
+            }
+        }, 100);
+        intervalIds.push(bossAttackingInterval);
+        this.bossIntervals.push(bossAttackingInterval);
     }
 
     endBossIntervals() {
