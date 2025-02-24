@@ -106,8 +106,14 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     mexicanHatSound.play();
                 }, 1600);
+                setTimeout(() => {
+                    document.getElementById("canvas").style.display = "none";
+                    document.getElementById("end-screen-wrapper").classList.remove("d-none");
+                    gameOverSound.play();
+                }, 8000);
             }
         }, 50);
+
         intervalIds.push(BossDyingInterval);
         this.bossIntervals.push(BossDyingInterval);
     }

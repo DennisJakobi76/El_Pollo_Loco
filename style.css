@@ -8,7 +8,9 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
-
+.d-none {
+    display: none;
+}
 #header {
     height: 200px;
     width: 400px;
@@ -68,10 +70,26 @@ canvas {
     font-size: 20px;
     font-weight: 600;
     color: rgb(122, 52, 5);
+    transition: all 0.2s ease-in-out;
 }
 
-.start-button:hover::before {
-    border-color: transparent transparent transparent #ffff66;
+.start-button:hover {
+    color: #ffff66;
+    scale: 1.1;
+}
+
+#end-screen-wrapper {
+    background-image: url("assets/img/background_and_header/desert_background.png");
+    background-position: center;
+    background-size: cover;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+#game-over-img {
+    width: 860px;
+    height: 480px;
 }
 
 /* @media only screen and (max-width: 720px) {
@@ -85,7 +103,3 @@ canvas {
         height: 100vh;
     }
 } */
-
-.d-none {
-    display: none;
-}
