@@ -1,5 +1,5 @@
 class CollectableObject extends MovableObject {
-    IMAGES = ["../assets/img/8_coin/coin_1.png", "../assets/img/8_coin/coin_2.png"];
+    IMAGES = ["assets/img/8_coin/coin_1.png", "assets/img/8_coin/coin_2.png"];
 
     constructor() {
         super().loadImage(this.IMAGES[0]);
