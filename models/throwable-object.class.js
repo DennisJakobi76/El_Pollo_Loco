@@ -17,18 +17,17 @@ class ThrowableObject extends CollectableObject {
         "../assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
     ];
 
-    offset = {
-        top: 10,
-        bottom: 8,
-        left: 18,
-        right: 10,
-    };
-
     constructor(x, y) {
         super().loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_BOTTLE_ON_GROUND);
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_BOTTLE_SPLASH);
+        this.offset = {
+            top: 10,
+            bottom: 8,
+            left: 18,
+            right: 10,
+        };
         this.x = x;
         this.y = y;
         this.height = 60;

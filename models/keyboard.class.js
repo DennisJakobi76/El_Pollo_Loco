@@ -1,10 +1,4 @@
 class Keyboard {
-    LEFT;
-    RIGHT;
-    UP;
-    DOWN;
-    SPACE;
-    D;
     constructor() {
         this.LEFT = false;
         this.RIGHT = false;

@@ -32,13 +32,6 @@ class Endboss extends MovableObject {
 
     IMAGES_HURT = ["../assets/img/4_enemie_boss_chicken/4_hurt/G21.png", "../assets/img/4_enemie_boss_chicken/4_hurt/G22.png", "../assets/img/4_enemie_boss_chicken/4_hurt/G23.png"];
 
-    offset = {
-        top: 70,
-        bottom: 20,
-        left: 22,
-        right: 10,
-    };
-
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
@@ -46,6 +39,12 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.offset = {
+            top: 70,
+            bottom: 20,
+            left: 22,
+            right: 10,
+        };
         this.height = 400;
         this.width = 280;
         this.x = 4000;
@@ -107,7 +106,7 @@ class Endboss extends MovableObject {
                     mexicanHatSound.play();
                 }, 1600);
                 setTimeout(() => {
-                    document.getElementById("canvas").style.display = "none";
+                    document.getElementById("canvas").classList.add("d-none");
                     document.getElementById("end-screen-wrapper").classList.remove("d-none");
                     gameOverSound.play();
                 }, 8000);

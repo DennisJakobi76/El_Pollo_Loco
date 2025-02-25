@@ -1,20 +1,4 @@
 class Character extends MovableObject {
-    height;
-    width;
-    y;
-    speed = 10;
-    idleStartTime = Date.now();
-    died = false;
-    jumpAttacks = false;
-    throws = false;
-    world;
-    offset = {
-        top: 100,
-        bottom: 10,
-        left: 26,
-        right: 26,
-    };
-
     IMAGES_THROWING = ["../assets/img/2_character_pepe/2_walk/W-22.png"];
 
     IMAGES_WALKING = [
@@ -85,6 +69,21 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.height;
+        this.width;
+        this.y;
+        this.speed = 10;
+        this.idleStartTime = Date.now();
+        this.died = false;
+        this.jumpAttacks = false;
+        this.throws = false;
+        this.world;
+        this.offset = {
+            top: 100,
+            bottom: 10,
+            left: 26,
+            right: 26,
+        };
         this.height = 250;
         this.width = 124;
         this.y = 80 - 100;
@@ -208,10 +207,19 @@ class Character extends MovableObject {
 
                 setTimeout(() => {
                     gameMusic.pause();
+                    runningSound.pause();
+                    snoringSound.pause();
                     this.died = true;
                     this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
                     this.endAllIntervals();
                 }, 800);
+
+                setTimeout(() => {
+                    document.getElementById("canvas").classList.add("d-none");
+                    document.getElementById("end-screen-wrapper").classList.remove("d-none");
+                    document.getElementById("game-over-img").src = "assets/img/9_intro_outro_screens/game_over/oh no you lost!.png";
+                    deadScreenSound.play();
+                }, 5500);
             }
         }, 150);
         intervalIds.push(characterDyingInterval);

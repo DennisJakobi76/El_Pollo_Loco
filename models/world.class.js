@@ -1,24 +1,20 @@
 class World {
-    character = new Character();
-    endBoss = null;
-    level = level1;
-    canvas;
-    ctx;
-    keyboard;
-    camera_x = 0;
-    healthBar = new StatusBarHealth();
-    coinBar = new StatusBarCoin();
-    bottleBar = new StatusBarBottle();
-    bottles = [];
-    bottlesAtStart = [];
-    collectedCoins = 0;
-    collectedBottles = 0;
-    lastCollisionTime = 0;
-
     constructor(canvas, keyboard) {
+        this.character = new Character();
+        this.endBoss = null;
+        this.level = level1;
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
+        this.camera_x = 0;
+        this.healthBar = new StatusBarHealth();
+        this.coinBar = new StatusBarCoin();
+        this.bottleBar = new StatusBarBottle();
+        this.bottles = [];
+        this.bottlesAtStart = [];
+        this.collectedCoins = 0;
+        this.collectedBottles = 0;
+        this.lastCollisionTime = 0;
         this.addBottlesToArray(this.bottlesAtStart, 10);
         this.endBoss = this.level.enemies[this.level.enemies.length - 1];
         this.draw();
