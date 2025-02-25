@@ -1,19 +1,21 @@
 class MovableObject extends DrawableObject {
-    speed = 0.15;
-    otherDirection = false;
-    fallSpeed = 0;
-    fallAcceleration = 1;
-    energy = 100;
-    lastHit = 0;
-    currentImage = 0;
-    startedAnimationOnce = false;
-
-    offset = {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-    };
+    constructor() {
+        super();
+        this.speed = 0.15;
+        this.otherDirection = false;
+        this.fallSpeed = 0;
+        this.fallAcceleration = 1;
+        this.energy = 100;
+        this.lastHit = 0;
+        this.currentImage = 0;
+        this.startedAnimationOnce = false;
+        this.offset = {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+        };
+    }
 
     moveRight() {
         this.x += this.speed;
@@ -105,6 +107,7 @@ class MovableObject extends DrawableObject {
         intervalIds.forEach((interval) => {
             clearInterval(interval);
         });
+        intervalIds = [];
     }
     resetIdleTimer() {
         this.idleStartTime = Date.now();

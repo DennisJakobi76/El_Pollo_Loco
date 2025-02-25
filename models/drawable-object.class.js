@@ -1,11 +1,13 @@
 class DrawableObject {
-    x = 120;
-    y = 280;
-    height = 150;
-    width = 100;
-    img;
-    imageCache = {};
-    world;
+    constructor() {
+        this.x = 120;
+        this.y = 280;
+        this.height = 150;
+        this.width = 100;
+        this.img;
+        this.imageCache = {};
+        this.world;
+    }
 
     loadImage(path) {
         this.img = new Image();

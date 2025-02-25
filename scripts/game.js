@@ -7,6 +7,7 @@ function init() {
 }
 
 function createWorld() {
+    initLevel();
     world = new World(canvas, keyboard);
 }
 

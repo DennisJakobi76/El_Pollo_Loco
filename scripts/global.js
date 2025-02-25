@@ -22,6 +22,26 @@ let senioraGallinaDyingSound = new Audio("../assets/audio/senioraGallinaDyingSou
 let mexicanHatSound = new Audio("../assets/audio/mexicanHatSound.mp3");
 let pickUpItemSound = new Audio("../assets/audio/pickUpItemSound.mp3");
 let throwBottleSound = new Audio("../assets/audio/throwBottleSound.mp3");
+let allAudios = [
+    startScreenSound,
+    deadScreenSound,
+    gameOverSound,
+    gameMusic,
+    characterJumpSound,
+    chickenHitSound,
+    bottleSplashSound,
+    runningSound,
+    snoringSound,
+    characterHitSound,
+    characterDyingSound,
+    characterDeadSound,
+    senioraGallinaHitSound,
+    senioraGallinaDyingSound,
+    mexicanHatSound,
+    pickUpItemSound,
+    throwBottleSound,
+];
+
 gameMusic.volume = 0.4;
 snoringSound.volume = 0.2;
 pickUpItemSound.volume = 0.2;
@@ -30,3 +50,10 @@ throwBottleSound.volume = 0.2;
 chickenHitSound.volume = 0.5;
 characterJumpSound.volume = 0.2;
 bottleSplashSound.volume = 0.2;
+
+function stopAllAudios() {
+    allAudios.forEach((audio) => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+}
