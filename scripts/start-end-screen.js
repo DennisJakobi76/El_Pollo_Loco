@@ -3,6 +3,7 @@ const SPEAKER_ICON = document.getElementById("speaker-icon");
 const START_SCREEN_WRAPPER = document.getElementById("start-screen-wrapper");
 const END_SCREEN_WRAPPER = document.getElementById("end-screen-wrapper");
 const CANVAS = document.getElementById("canvas");
+const GAME_OVER_MESSAGE_IMG = document.getElementById("game-over-img");
 
 function unmuteMusic() {
     MUTE_ICON.classList.add("d-none");
@@ -26,6 +27,7 @@ function startGame() {
 }
 
 function showHomeScreen() {
+    GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
     // stopAllAudios();
     // muteMusic();
     // CANVAS.classList.add("d-none");
