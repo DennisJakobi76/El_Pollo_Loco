@@ -42,12 +42,17 @@ let allAudios = [
     throwBottleSound,
 ];
 
-gameMusic.volume = 0.4;
+startScreenSound.volume = 0.6;
+deadScreenSound.volume = 0.6;
+gameOverSound.volume = 0.6;
+characterDyingSound.volume = 0.4;
+characterDeadSound.volume = 0.4;
+gameMusic.volume = 0.3;
 snoringSound.volume = 0.2;
 pickUpItemSound.volume = 0.2;
 runningSound.volume = 0.2;
 throwBottleSound.volume = 0.2;
-chickenHitSound.volume = 0.5;
+chickenHitSound.volume = 0.4;
 characterJumpSound.volume = 0.2;
 bottleSplashSound.volume = 0.2;
 

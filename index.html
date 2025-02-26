@@ -40,13 +40,17 @@
 			<img id="mute-icon" class="music-icon" src="assets/icons/switch-off.png" alt="Stumm Icon"
 				onclick="unmuteMusic()">
 		</div>
-		<button class="play-button" onclick="startGame()">Start</button>
+		<div class="game-button-container"><button class="game-button" onclick="startGame()">Start</button></div>
+
 	</div>
 	<canvas id="canvas" width="720" height="480" class="d-none"></canvas>
 	<div class="screen-wrapper d-none" id="end-screen-wrapper">
 		<img id="game-over-img" src="assets/img/9_intro_outro_screens/game_over/game over.png"
 			alt="Game Over Schriftzug">
-		<button class="play-button" onclick="showHomeScreen()">Replay</button>
+		<div class="game-button-container"><button class="game-button" onclick="restartGame()">Replay</button>
+			<button class="game-button" onclick="showHomeScreen()">Leave Game</button>
+		</div>
+
 	</div>
 </body>
 
