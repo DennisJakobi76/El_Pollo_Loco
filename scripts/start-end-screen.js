@@ -14,11 +14,15 @@ function unmuteMusic() {
         startScreenSound.play();
     }
     setSoundVolumes();
+    eplSoundChoice = true;
+    writeSoundChoiceToLocalStorage();
 }
 
 function muteMusic() {
     MUTE_ICON.classList.remove("d-none");
     muteAllSounds();
+    eplSoundChoice = false;
+    writeSoundChoiceToLocalStorage();
 }
 
 function startGame() {
@@ -26,6 +30,12 @@ function startGame() {
     startScreenSound.pause();
     CANVAS.classList.remove("d-none");
     START_SCREEN_WRAPPER.classList.add("d-none");
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if (eplSoundChoice === "false") {
+        muteAllSounds();
+    } else {
+        unmuteMusic();
+    }
     createWorld();
 }
 

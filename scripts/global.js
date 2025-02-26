@@ -5,6 +5,7 @@ let chickenCounter = 1;
 let coinCounter = 1;
 let charactersInitialFallSpeed = 20;
 let characterHasThrownOneBottle = false;
+let eplSoundChoice = false;
 
 let startScreenSound = new Audio("assets/audio/startScreenSound.mp3");
 let deadScreenSound = new Audio("assets/audio/deadScreenSound.mp3");
@@ -77,6 +78,15 @@ function setAudioLoop(audio) {
         audio.currentTime = 0;
         audio.play();
     });
+}
+
+function writeSoundChoiceToLocalStorage() {
+    localStorage.setItem("EPL_SoundOn", eplSoundChoice);
+}
+
+function readSoundChoiceFromLocalStorage() {
+    eplSoundChoice = localStorage.getItem("EPL_SoundOn");
+    return eplSoundChoice;
 }
 
 setAudioLoop(startScreenSound);
