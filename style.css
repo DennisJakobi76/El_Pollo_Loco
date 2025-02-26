@@ -26,6 +26,7 @@ canvas {
 .screen-wrapper {
     width: 860px;
     height: 480px;
+    position: relative;
 }
 
 #start-screen-wrapper {
@@ -54,7 +55,18 @@ canvas {
     justify-content: center;
 }
 
-.play-button {
+.game-button-container {
+    position: absolute;
+    right: 50%;
+    bottom: 10px;
+    transform: translateX(50%);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.game-button {
     width: 200px;
     height: 50px;
     background-image: linear-gradient(to bottom, #ffff00, #ffa07a);
@@ -62,10 +74,6 @@ canvas {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 50px;
-    position: absolute;
-    right: 50%;
-    bottom: 25%;
-    transform: translateX(50%);
     font-family: "Press Start 2P", cursive;
     font-size: 20px;
     font-weight: 600;
@@ -73,7 +81,7 @@ canvas {
     transition: all 0.2s ease-in-out;
 }
 
-.play-button:hover {
+.game-button:hover {
     color: #ffff66;
     scale: 1.05;
 }

@@ -26,6 +26,14 @@ function startGame() {
     createWorld();
 }
 
+function restartGame() {
+    GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
+    stopAllAudios();
+    muteMusic();
+    END_SCREEN_WRAPPER.classList.add("d-none");
+    startGame();
+}
+
 function showHomeScreen() {
     GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
     stopAllAudios();
