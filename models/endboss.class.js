@@ -50,7 +50,7 @@ class Endboss extends MovableObject {
         this.x = 4000;
         this.y = 56;
         this.killed = false;
-        this.speed = 4;
+        this.speed = 5;
         this.nearCharacter = false;
         this.notCloseEnoughToAttackCharacter = false;
         this.characterInAttackRange = false;
