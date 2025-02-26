@@ -4,6 +4,7 @@ let cloudCounter = 1;
 let chickenCounter = 1;
 let coinCounter = 1;
 let charactersInitialFallSpeed = 20;
+let characterHasThrownOneBottle = false;
 
 let startScreenSound = new Audio("assets/audio/startScreenSound.mp3");
 let deadScreenSound = new Audio("assets/audio/deadScreenSound.mp3");

@@ -211,13 +211,15 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && !characterHasThrownOneBottle) {
             if (this.collectedBottles > 0) {
                 let bottle;
                 if (this.character.otherDirection) {
                     bottle = new ThrowableObject(this.character.x - 12, this.character.y + 120);
+                    characterHasThrownOneBottle = true;
                 } else {
                     bottle = new ThrowableObject(this.character.x + 82, this.character.y + 120);
+                    characterHasThrownOneBottle = true;
                 }
                 this.bottles.push(bottle);
                 throwBottleSound.play();

@@ -68,12 +68,14 @@ class ThrowableObject extends CollectableObject {
         setTimeout(() => {
             clearInterval(this.intervalId);
         }, 60);
+        characterHasThrownOneBottle = false;
     }
 
     playBottleSplashAnimation() {
         let bottleSplashInterval = setInterval(() => {
             this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
         }, 50);
+        characterHasThrownOneBottle = false;
         intervalIds.push(bottleSplashInterval);
     }
 }
