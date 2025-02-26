@@ -43,23 +43,44 @@ let allAudios = [
     throwBottleSound,
 ];
 
-startScreenSound.volume = 0.6;
-deadScreenSound.volume = 0.6;
-gameOverSound.volume = 0.6;
-characterDyingSound.volume = 0.4;
-characterDeadSound.volume = 0.4;
-gameMusic.volume = 0.3;
-snoringSound.volume = 0.2;
-pickUpItemSound.volume = 0.2;
-runningSound.volume = 0.2;
-throwBottleSound.volume = 0.2;
-chickenHitSound.volume = 0.4;
-characterJumpSound.volume = 0.2;
-bottleSplashSound.volume = 0.2;
-
+function setSoundVolumes() {
+    startScreenSound.volume = 0.6;
+    deadScreenSound.volume = 0.6;
+    gameOverSound.volume = 0.6;
+    gameMusic.volume = 0.3;
+    characterDyingSound.volume = 0.4;
+    characterDeadSound.volume = 0.4;
+    characterHitSound.volume = 0.8;
+    snoringSound.volume = 0.2;
+    pickUpItemSound.volume = 0.2;
+    runningSound.volume = 0.2;
+    throwBottleSound.volume = 0.2;
+    chickenHitSound.volume = 0.4;
+    characterJumpSound.volume = 0.2;
+    bottleSplashSound.volume = 0.2;
+    senioraGallinaHitSound.volume = 0.4;
+    senioraGallinaDyingSound.volume = 0.4;
+    mexicanHatSound.volume = 0.4;
+}
 function stopAllAudios() {
     allAudios.forEach((audio) => {
         audio.pause();
         audio.currentTime = 0;
     });
 }
+function muteAllSounds() {
+    allAudios.forEach((audio) => (audio.volume = 0));
+}
+
+function setAudioLoop(audio) {
+    audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+}
+
+setAudioLoop(startScreenSound);
+setAudioLoop(gameMusic);
+setAudioLoop(deadScreenSound);
+setAudioLoop(gameOverSound);
+setSoundVolumes();

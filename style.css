@@ -1,3 +1,9 @@
+* {
+    font-family: "Press Start 2P", cursive;
+    font-size: 20px;
+    font-weight: 600;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -8,14 +14,30 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+
+main {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
 .d-none {
     display: none;
 }
+
 #header {
     height: 200px;
     width: 400px;
-    /* position: absolute;
-    top: 0; */
+}
+
+#control-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    pointer-events: none;
+    z-index: 1;
 }
 
 canvas {
@@ -24,28 +46,29 @@ canvas {
 }
 
 .screen-wrapper {
-    width: 860px;
-    height: 480px;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
 #start-screen-wrapper {
-    background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_1.png");
+    background-image: url("assets/img/9_intro_outro_screens/start/startscreen_1.png");
     background-position: center;
-    background-size: cover;
+    background-size: 100% 100%;
 }
 
 .music-icon {
-    width: 52px;
-    height: 52px;
+    width: 32px;
+    height: 32px;
     position: absolute;
     top: 8px;
     right: 8px;
     cursor: pointer;
+    pointer-events: auto;
 }
 
 #mute-icon {
-    z-index: 1;
+    z-index: 2;
 }
 
 #music-container {
@@ -74,9 +97,6 @@ canvas {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 50px;
-    font-family: "Press Start 2P", cursive;
-    font-size: 20px;
-    font-weight: 600;
     color: rgb(122, 52, 5);
     transition: all 0.2s ease-in-out;
 }
@@ -89,15 +109,12 @@ canvas {
 #end-screen-wrapper {
     background-image: url("assets/img/background_and_header/desert_background.png");
     background-position: center;
-    background-size: cover;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
+    background-size: 100% 100%;
 }
 
 #game-over-img {
-    width: 860px;
-    height: 480px;
+    width: 100%;
+    height: 100%;
 }
 
 /* @media only screen and (max-width: 720px) {
