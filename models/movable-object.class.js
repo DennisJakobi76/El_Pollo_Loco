@@ -107,7 +107,6 @@ class MovableObject extends DrawableObject {
         intervalIds.forEach((interval) => {
             clearInterval(interval);
         });
-        intervalIds = [];
     }
     resetIdleTimer() {
         this.idleStartTime = Date.now();

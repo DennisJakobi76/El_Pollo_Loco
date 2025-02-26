@@ -28,10 +28,9 @@ function startGame() {
 
 function showHomeScreen() {
     GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
-    // stopAllAudios();
-    // muteMusic();
-    // CANVAS.classList.add("d-none");
-    // END_SCREEN_WRAPPER.classList.add("d-none");
-    // START_SCREEN_WRAPPER.classList.remove("d-none");
-    location.reload();
+    stopAllAudios();
+    muteMusic();
+    CANVAS.classList.add("d-none");
+    END_SCREEN_WRAPPER.classList.add("d-none");
+    START_SCREEN_WRAPPER.classList.remove("d-none");
 }
