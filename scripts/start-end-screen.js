@@ -42,7 +42,12 @@ function startGame() {
 function restartGame() {
     GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
     stopAllAudios();
-    muteMusic();
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if (eplSoundChoice === "false") {
+        muteAllSounds();
+    } else {
+        unmuteMusic();
+    }
     END_SCREEN_WRAPPER.classList.add("d-none");
     startGame();
 }
