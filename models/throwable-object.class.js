@@ -76,6 +76,5 @@ class ThrowableObject extends CollectableObject {
             this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
         }, 50);
         characterHasThrownOneBottle = false;
-        intervalIds.push(bottleSplashInterval);
     }
 }

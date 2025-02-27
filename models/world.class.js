@@ -161,7 +161,7 @@ class World {
             }
         });
         this.bottles.forEach((bottle) => {
-            if (this.character.isColliding(bottle)) {
+            if (this.character.isColliding(bottle) && bottle.lyingOnTheGround) {
                 if (this.collectedBottles < 100 && this.bottles.length > 0) {
                     pickUpItemSound.play();
                     this.bottles.splice(this.bottles.indexOf(bottle), 1);
