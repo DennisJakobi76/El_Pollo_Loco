@@ -11,7 +11,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url("./assets/img/background_and_header/desert_background.png");
+    background-image: url("././assets/img/background_and_header/desert_background.png");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -54,7 +54,7 @@ canvas {
 }
 
 #start-screen-wrapper {
-    background-image: url("assets/img/9_intro_outro_screens/start/startscreen_1.png");
+    background-image: url("./assets/img/9_intro_outro_screens/start/startscreen_1.png");
     background-position: center;
     background-size: 100% 100%;
 }
@@ -119,7 +119,7 @@ canvas {
 }
 
 #end-screen-wrapper {
-    background-image: url("assets/img/background_and_header/desert_background.png");
+    background-image: url("./assets/img/background_and_header/desert_background.png");
     background-position: center;
     background-size: 100% 100%;
 }

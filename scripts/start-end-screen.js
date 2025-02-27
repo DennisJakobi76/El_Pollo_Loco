@@ -43,7 +43,7 @@ function startGame() {
 }
 
 function restartGame() {
-    GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
+    GAME_OVER_MESSAGE_IMG.src = "./assets/img/9_intro_outro_screens/game_over/game over.png";
     stopAllAudios();
     eplSoundChoice = readSoundChoiceFromLocalStorage();
     if (eplSoundChoice === "false") {
@@ -56,7 +56,7 @@ function restartGame() {
 }
 
 function showHomeScreen() {
-    GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
+    GAME_OVER_MESSAGE_IMG.src = "./assets/img/9_intro_outro_screens/game_over/game over.png";
     isStartScreen = true;
     stopAllAudios();
 
@@ -73,10 +73,10 @@ function showHomeScreen() {
 
 function toggleFullscreen() {
     if (!document.fullscreenElement) {
-        SCREEN_ICON.src = "assets/icons/window_mode_icon.png";
+        SCREEN_ICON.src = "./assets/icons/window_mode_icon.png";
         document.documentElement.requestFullscreen();
     } else {
-        SCREEN_ICON.src = "assets/icons/fullscreen_icon.png";
+        SCREEN_ICON.src = "./assets/icons/fullscreen_icon.png";
         document.exitFullscreen();
     }
 }

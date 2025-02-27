@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="assets/img/4_enemie_boss_chicken/3_attack/G14.png" type="image/x-icon">
+	<link rel="shortcut icon" href="./assets/img/4_enemie_boss_chicken/3_attack/G14.png" type="image/x-icon">
 	<link rel="stylesheet" href="style.css">
 	<script src="scripts/global.js" defer></script>
 	<script src="models/world.class.js" defer></script>
@@ -32,18 +32,18 @@
 
 <body onload="init()">
 
-	<div><img id="header" src="assets/img/background_and_header/epl_header.png" alt="Überschrift"></div>
+	<div><img id="header" src="./assets/img/background_and_header/epl_header.png" alt="Überschrift"></div>
 
 	<main>
 		<div id="control-overlay">
 			<div class="icon-container">
-				<img id="toggle-screen-icon" src="assets/icons/fullscreen_icon.png" class="screen-icon"
+				<img id="toggle-screen-icon" src="./assets/icons/fullscreen_icon.png" class="screen-icon"
 					alt="Vollbild Icon" onclick="toggleFullscreen()">
 			</div>
 			<div class="icon-container">
-				<img id="speaker-icon" class="music-icon" src="assets/icons/speaker.png" alt="Lautsprecher Icon"
+				<img id="speaker-icon" class="music-icon" src="./assets/icons/speaker.png" alt="Lautsprecher Icon"
 					onclick="muteMusic()">
-				<img id="mute-icon" class="music-icon" src="assets/icons/switch-off.png" alt="Stumm Icon"
+				<img id="mute-icon" class="music-icon" src="./assets/icons/switch-off.png" alt="Stumm Icon"
 					onclick="unmuteMusic()">
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 		</div>
 		<canvas id="canvas" width="720" height="480" class="d-none"></canvas>
 		<div class="screen-wrapper d-none" id="end-screen-wrapper">
-			<img id="game-over-img" src="assets/img/9_intro_outro_screens/game_over/game over.png"
+			<img id="game-over-img" src="./assets/img/9_intro_outro_screens/game_over/game over.png"
 				alt="Game Over Schriftzug">
 			<div class="game-button-container"><button class="game-button" onclick="restartGame()">Replay</button>
 				<button class="game-button" onclick="showHomeScreen()">Leave Game</button>
