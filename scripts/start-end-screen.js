@@ -9,10 +9,11 @@ let isStartScreen = true;
 
 function unmuteMusic() {
     MUTE_ICON.classList.add("d-none");
-    if (isStartScreen) {
+    if (isStartScreen || (eplSoundChoice && !isFirstGameStart && isStartScreen)) {
         startScreenSound.currentTime = 0;
         startScreenSound.play();
     }
+
     setSoundVolumes();
     eplSoundChoice = true;
     writeSoundChoiceToLocalStorage();
@@ -37,6 +38,7 @@ function startGame() {
         unmuteMusic();
     }
     createWorld();
+    isFirstGameStart = false;
 }
 
 function restartGame() {
@@ -54,9 +56,15 @@ function restartGame() {
 
 function showHomeScreen() {
     GAME_OVER_MESSAGE_IMG.src = "assets/img/9_intro_outro_screens/game_over/game over.png";
-    stopAllAudios();
-    muteMusic();
     isStartScreen = true;
+    stopAllAudios();
+
+    if (!isFirstGameStart && eplSoundChoice === "false") {
+        muteMusic();
+    } else {
+        unmuteMusic();
+    }
+
     CANVAS.classList.add("d-none");
     END_SCREEN_WRAPPER.classList.add("d-none");
     START_SCREEN_WRAPPER.classList.remove("d-none");
