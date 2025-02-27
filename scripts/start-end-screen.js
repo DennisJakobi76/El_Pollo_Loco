@@ -1,5 +1,6 @@
 const MUTE_ICON = document.getElementById("mute-icon");
 const SPEAKER_ICON = document.getElementById("speaker-icon");
+const SCREEN_ICON = document.getElementById("toggle-screen-icon");
 const START_SCREEN_WRAPPER = document.getElementById("start-screen-wrapper");
 const END_SCREEN_WRAPPER = document.getElementById("end-screen-wrapper");
 const CANVAS = document.getElementById("canvas");
@@ -68,4 +69,14 @@ function showHomeScreen() {
     CANVAS.classList.add("d-none");
     END_SCREEN_WRAPPER.classList.add("d-none");
     START_SCREEN_WRAPPER.classList.remove("d-none");
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        SCREEN_ICON.src = "assets/icons/window_mode_icon.png";
+        document.documentElement.requestFullscreen();
+    } else {
+        SCREEN_ICON.src = "assets/icons/fullscreen_icon.png";
+        document.exitFullscreen();
+    }
 }

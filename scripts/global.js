@@ -62,7 +62,7 @@ function setSoundVolumes() {
     bottleSplashSound.volume = 0.2;
     senioraGallinaHitSound.volume = 0.4;
     senioraGallinaDyingSound.volume = 0.4;
-    mexicanHatSound.volume = 0.4;
+    mexicanHatSound.volume = 0.8;
 }
 function stopAllAudios() {
     allAudios.forEach((audio) => {
