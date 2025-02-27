@@ -185,10 +185,14 @@ class World {
         let worldCheckCharacterNearEndbossInterval = setInterval(() => {
             this.checkCharacterNearEndboss();
         }, 50);
+        let worldCheckCharacterBehindEndbossInterval = setInterval(() => {
+            this.checkCharacterBehindEndboss();
+        }, 50);
         intervalIds.push(worldCheckCollisionsInterval);
         intervalIds.push(worldRunInterval);
         intervalIds.push(worldCheckPickUpCoinsInterval);
         intervalIds.push(worldCheckCharacterNearEndbossInterval);
+        intervalIds.push(worldCheckCharacterBehindEndbossInterval);
     }
 
     checkCharacterNearEndboss() {
@@ -207,6 +211,16 @@ class World {
             this.endBoss.characterInAttackRange = true;
         } else {
             this.endBoss.characterInAttackRange = false;
+        }
+    }
+
+    checkCharacterBehindEndboss() {
+        if (this.character.x - this.character.offset.left > this.endBoss.x + this.endBoss.offset.right) {
+            this.endBoss.characterIsBehindEndboss = true;
+            this.endBoss.otherDirection = true;
+        } else {
+            this.endBoss.characterIsBehindEndboss = false;
+            this.endBoss.otherDirection = false;
         }
     }
 

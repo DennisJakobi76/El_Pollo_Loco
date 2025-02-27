@@ -54,6 +54,7 @@ class Endboss extends MovableObject {
         this.nearCharacter = false;
         this.notCloseEnoughToAttackCharacter = false;
         this.characterInAttackRange = false;
+        this.characterIsBehindEndboss = false;
         this.bossIntervals = [];
         this.animate();
     }
@@ -120,8 +121,13 @@ class Endboss extends MovableObject {
     playBossWalkingAnimation() {
         let bossWalkingInterval = setInterval(() => {
             if (this.notCloseEnoughToAttackCharacter && !this.isHurt() && !this.isDead()) {
-                this.playAnimationInfinite(this.IMAGES_WALKING);
-                this.moveLeft();
+                if (!this.characterIsBehindEndboss) {
+                    this.playAnimationInfinite(this.IMAGES_WALKING);
+                    this.moveLeft();
+                } else {
+                    this.playAnimationInfinite(this.IMAGES_WALKING);
+                    this.moveRight();
+                }
             }
         }, 100);
         intervalIds.push(bossWalkingInterval);
