@@ -213,7 +213,7 @@ canvas {
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 920px) {
     #header {
         display: none;
     }
@@ -224,7 +224,7 @@ canvas {
 
     main {
         overflow: hidden;
-        top: 24px;
+        top: 21px;
         width: 100vw;
         height: 100vh;
     }
@@ -248,7 +248,7 @@ canvas {
         right: 0;
         width: auto;
         height: auto;
-        z-index: 2;
+        z-index: 3;
     }
 
     .icon-container {
