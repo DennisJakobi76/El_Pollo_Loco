@@ -1,4 +1,5 @@
 * {
+    box-sizing: border-box;
     font-family: "Press Start 2P", cursive;
     font-size: 20px;
     font-weight: 600;
@@ -7,6 +8,7 @@
 body {
     height: 100vh;
     margin-top: -5vh;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -224,7 +226,6 @@ canvas {
 
     main {
         overflow: hidden;
-        top: 21px;
         width: 100vw;
         height: 100vh;
     }
@@ -293,11 +294,14 @@ canvas {
 
     /* Imprint page mobile styles */
     .container {
-        top: 24px;
+        border-radius: 0;
+        top: 40px;
         width: 90%;
         margin: 10px auto;
         padding: 20px;
         font-size: 16px;
+        overflow-y: auto;
+        max-height: 50vh;
     }
 
     .container p {
@@ -346,6 +350,14 @@ canvas {
 @media only screen and (orientation: landscape) {
     body::after {
         display: none;
+    }
+    .game-button-container {
+        bottom: 5px;
+    }
+
+    body {
+        overflow: hidden;
+        margin: 0;
     }
 
     main {
