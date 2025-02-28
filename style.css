@@ -213,7 +213,7 @@ canvas {
     }
 }
 
-/* @media only screen and (max-width: 720px) {
+@media only screen and (max-width: 720px) {
 }
 canvas {
     width: 100%;
@@ -223,4 +223,4 @@ canvas {
     canvas {
         height: 100vh;
     }
-} */
+}
