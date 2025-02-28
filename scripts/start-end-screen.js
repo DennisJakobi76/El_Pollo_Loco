@@ -73,10 +73,16 @@ function showHomeScreen() {
 
 function toggleFullscreen() {
     if (!document.fullscreenElement) {
-        SCREEN_ICON.src = "./assets/icons/window_mode_icon.png";
         document.documentElement.requestFullscreen();
     } else {
-        SCREEN_ICON.src = "./assets/icons/fullscreen_icon.png";
         document.exitFullscreen();
     }
 }
+
+document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
+        SCREEN_ICON.src = "./assets/icons/window_mode_icon.png";
+    } else {
+        SCREEN_ICON.src = "./assets/icons/fullscreen_icon.png";
+    }
+});
