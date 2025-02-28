@@ -263,6 +263,65 @@ canvas {
         top: 0;
         right: 0;
     }
+
+    /* Story page mobile styles */
+    .story-container {
+        border-radius: 0;
+        top: 24px;
+        width: 100%;
+        padding: 20px;
+        margin: 0;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+
+    .story-container p {
+        width: 100%;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    #story-header1 {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+
+    #story-header2 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    /* Imprint page mobile styles */
+    .container {
+        top: 24px;
+        width: 90%;
+        margin: 10px auto;
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .container p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .story-container p {
+        font-size: 14px;
+    }
+
+    #story-header1 {
+        font-size: 24px;
+    }
+
+    #story-header2 {
+        font-size: 18px;
+    }
+
+    .container p {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (orientation: portrait) {
