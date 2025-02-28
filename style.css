@@ -138,13 +138,12 @@ canvas {
     padding: 4px 8px;
 
     & a {
-        /* color: rgb(252, 206, 1); */
-        /* color: rgb(122, 52, 5); */
         color: black;
     }
 }
 
 .imprint-container {
+    position: relative;
     border-radius: 20px;
     background-color: rgb(0, 0, 0, 0.5);
     padding: 10px;
@@ -155,6 +154,15 @@ canvas {
     & a {
         color: rgb(252, 122, 1);
     }
+}
+
+#back-arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
 }
 
 /* @media only screen and (max-width: 720px) {
