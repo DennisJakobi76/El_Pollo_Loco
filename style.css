@@ -138,11 +138,12 @@ canvas {
     padding: 4px 8px;
 
     & a {
+        margin-right: 16px;
         color: black;
     }
 }
 
-.imprint-container {
+.container {
     position: relative;
     border-radius: 20px;
     background-color: rgb(0, 0, 0, 0.5);
@@ -156,7 +157,33 @@ canvas {
     }
 }
 
-#back-arrow {
+#story-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-container p {
+    width: 1400px;
+    text-align: left;
+    font-size: 20px;
+    color: rgb(252, 206, 1);
+
+    & em {
+        color: rgb(252, 122, 1);
+    }
+}
+
+#story-header1 {
+    font-size: 48px;
+}
+
+#story-header2 {
+    font-size: 32px;
+}
+
+.back-arrow {
     cursor: pointer;
     position: absolute;
     top: 8px;
