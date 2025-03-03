@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/character.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/character.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Character extends MovableObject {
+    IMAGES_THROWING = ["./assets/img/2_character_pepe/2_walk/W-22.png"];
+
+    IMAGES_WALKING = [
+        "./assets/img/2_character_pepe/2_walk/W-21.png",
+        "./assets/img/2_character_pepe/2_walk/W-22.png",
+        "./assets/img/2_character_pepe/2_walk/W-23.png",
+        "./assets/img/2_character_pepe/2_walk/W-24.png",
+        "./assets/img/2_character_pepe/2_walk/W-25.png",
+        "./assets/img/2_character_pepe/2_walk/W-26.png",
+    ];
+
+    IMAGES_JUMPING = [
+        "./assets/img/2_character_pepe/3_jump/J-31.png",
+        "./assets/img/2_character_pepe/3_jump/J-32.png",
+        "./assets/img/2_character_pepe/3_jump/J-33.png",
+        "./assets/img/2_character_pepe/3_jump/J-34.png",
+        "./assets/img/2_character_pepe/3_jump/J-35.png",
+        "./assets/img/2_character_pepe/3_jump/J-36.png",
+        "./assets/img/2_character_pepe/3_jump/J-37.png",
+        "./assets/img/2_character_pepe/3_jump/J-38.png",
+        "./assets/img/2_character_pepe/3_jump/J-39.png",
+    ];
+
+    IMAGES_IDLE = [
+        "./assets/img/2_character_pepe/1_idle/idle/I-1.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-2.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-3.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-4.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-5.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-6.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-7.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-8.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-9.png",
+        "./assets/img/2_character_pepe/1_idle/idle/I-10.png",
+    ];
+
+    IMAGES_LONG_IDLE = [
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-11.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-12.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-13.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-14.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-15.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-16.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-17.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-18.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-19.png",
+        "./assets/img/2_character_pepe/1_idle/long_idle/I-20.png",
+    ];
+
+    IMAGES_DEAD = [
+        "./assets/img/2_character_pepe/5_dead/D-51.png",
+        "./assets/img/2_character_pepe/5_dead/D-52.png",
+        "./assets/img/2_character_pepe/5_dead/D-53.png",
+        "./assets/img/2_character_pepe/5_dead/D-54.png",
+        "./assets/img/2_character_pepe/5_dead/D-55.png",
+        "./assets/img/2_character_pepe/5_dead/D-56.png",
+        "./assets/img/2_character_pepe/5_dead/D-57.png",
+    ];
+
+    IMAGES_HURT = ["./assets/img/2_character_pepe/4_hurt/H-41.png", "./assets/img/2_character_pepe/4_hurt/H-42.png", "./assets/img/2_character_pepe/4_hurt/H-43.png"];
+
+    /**
+     * Constructor for Character class
+     * @constructor
+     * @param {Object} world - the World object that the Character is part of
+     * @param {Number} x - the x position of the Character
+     * @param {Number} y - the y position of the Character
+     */
+    constructor() {
+        super().loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_THROWING);
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
+        this.height;
+        this.width;
+        this.y;
+        this.speed = 10;
+        this.idleStartTime = Date.now();
+        this.died = false;
+        this.jumpAttacks = false;
+        this.throws = false;
+        this.world;
+        this.offset = {
+            top: 100,
+            bottom: 10,
+            left: 26,
+            right: 26,
+        };
+        this.height = 250;
+        this.width = 124;
+        this.y = 80 - 100;
+        this.applyGravity();
+        this.animate();
+    }
+
+    /**
+     * Animates the character by checking movement and playing relevant animations.
+     * This includes animations for walking, jumping, being hurt, dying, idling, and throwing.
+     */
+
+    animate() {
+        this.checkAndPlayMovementAnimation();
+        this.playWalkingAnimation();
+        this.playJumpingAnimation();
+        this.playHurtAnimation();
+        this.playDyingAnimation();
+        this.playIdleAnimation();
+        this.playThrowingAnimation();
+    }
+
+    /**
+     * Pauses the running sound while the character is jumping.
+     * This function is used within the character's animation loop.
+     */
+    pauseRunningSoundWhileJumping() {
+        if (this.isAboveGround()) {
+            runningSound.pause();
+        }
+    }
+
+    /**
+     * Handles the right arrow key by moving the character to the right when the
+     * right arrow key is pressed and the character is not at the end of the level.
+     * Plays the running sound and pauses it while the character is jumping.
+     */
+    handleMovingRight() {
+        if (this.world.keyboard.RIGHT &amp;&amp; this.x &lt; this.world.level.level_end_x) {
+            this.otherDirection = false;
+            runningSound.play();
+            this.pauseRunningSoundWhileJumping();
+            this.moveRight();
+        }
+    }
+
+    handleMovingLeft() {
+        if (this.world.keyboard.LEFT &amp;&amp; this.x > -610) {
+            this.otherDirection = true;
+            runningSound.play();
+            this.pauseRunningSoundWhileJumping();
+            this.moveLeft();
+        }
+    }
+
+    /**
+     * Handles the SPACE or UP arrow key by making the character jump
+     * when the character is not already jumping.
+     * Pauses the running sound and plays the jumping sound.
+     */
+    handleJumping() {
+        if ((this.world.keyboard.SPACE || this.world.keyboard.UP) &amp;&amp; !this.isAboveGround()) {
+            runningSound.pause();
+            characterJumpSound.play();
+            this.jump();
+        }
+    }
+
+    /**
+     * Handles the D key by setting the character's throwing status accordingly.
+     * This is used to determine whether the character should throw a bottle or not.
+     */
+    handleThrowing() {
+        if (this.world.keyboard.D) {
+            this.throws = true;
+        }
+        if (!this.world.keyboard.D) {
+            this.throws = false;
+        }
+    }
+
+    /**
+     * Checks and handles the character's movement and jumping.
+     * This involves checking the state of the movement keys and the jump key.
+     * It also updates the camera's x position to follow the character.
+     * @param {number} interval - The interval at which to check and handle the character's movement in milliseconds.
+     */
+    checkAndPlayMovementAnimation() {
+        let characterCheckAnimationInterval = setInterval(() => {
+            this.checkCharacterJumpAttacks();
+            this.handleMovingRight();
+            this.handleMovingLeft();
+            this.handleJumping();
+            this.handleThrowing();
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60);
+        intervalIds.push(characterCheckAnimationInterval);
+    }
+
+    /**
+     * Makes the character jump by setting its fall speed to 20 and resetting its idle timer.
+     */
+    jump() {
+        this.fallSpeed = 20;
+        this.resetIdleTimer();
+    }
+
+    /**
+     * Checks if the character is currently jumpattacking.
+     * The character is considered to be on his way down in a jump if its y position is greater than -20 and its fall
+     * speed is negative.
+     * @returns {boolean} Whether the character is jumpattacking an an enemy from above.
+     */
+    checkCharacterJumpAttacks() {
+        if (this.y > -20 &amp;&amp; this.fallSpeed &lt; 0) {
+            this.jumpAttacks = true;
+        } else {
+            this.jumpAttacks = false;
+        }
+        return this.jumpAttacks;
+    }
+
+    /**
+     * Plays the walking animation for the character if they are not above ground and not dead.
+     * The animation is triggered when the RIGHT or LEFT keyboard keys are pressed.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the walking animation.
+     */
+
+    playWalkingAnimation() {
+        let characterWalkingInterval = setInterval(() => {
+            if (!this.isAboveGround() &amp;&amp; !this.isDead()) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.playAnimationInfinite(this.IMAGES_WALKING);
+                    this.resetIdleTimer();
+                }
+            }
+        }, 100);
+        intervalIds.push(characterWalkingInterval);
+    }
+
+    /**
+     * Plays the jumping animation for the character if they are not above ground and not dead.
+     * The animation is triggered when the character is above ground and not dead.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the jumping animation.
+     */
+    playJumpingAnimation() {
+        let characterJumpingInterval = setInterval(() => {
+            if (this.isAboveGround()) {
+                this.playAnimationOnce(this.IMAGES_JUMPING);
+                this.resetIdleTimer();
+            }
+        }, 150);
+        intervalIds.push(characterJumpingInterval);
+    }
+
+    /**
+     * Checks if the character is currently in the act of throwing an object.
+     * @returns {boolean} True if the character is throwing, otherwise false.
+     */
+
+    isThrowing() {
+        return this.throws;
+    }
+
+    /**
+     * Plays the throwing animation for the character if they are currently in the act of throwing.
+     * The animation is triggered when the character is throwing.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the throwing animation.
+     */
+    playThrowingAnimation() {
+        let characterThrowingInterval = setInterval(() => {
+            if (this.isThrowing()) {
+                this.playAnimationOnce(this.IMAGES_THROWING);
+                this.resetIdleTimer();
+            }
+        }, 100);
+        intervalIds.push(characterThrowingInterval);
+    }
+
+    /**
+     * Plays the hurt animation for the character if they are hurt.
+     * The animation is triggered when the character is in a hurt state.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the hurt animation.
+     */
+
+    playHurtAnimation() {
+        let characterHurtInterval = setInterval(() => {
+            if (this.isHurt()) {
+                this.playAnimationInfinite(this.IMAGES_HURT);
+                this.resetIdleTimer();
+            }
+        }, 100);
+        intervalIds.push(characterHurtInterval);
+    }
+
+    /**
+     * Plays the full dying animation sequence for the character.
+     * This involves pausing the running and snoring sounds, playing the dying sound,
+     * executing the dying animation, and resetting the idle timer.
+     * After a delay of 1000 milliseconds, the dead sound is played.
+     */
+
+    showFullDyingAnimation() {
+        runningSound.pause();
+        snoringSound.pause();
+        characterDyingSound.play();
+        this.playAnimationOnce(this.IMAGES_DEAD);
+        this.resetIdleTimer();
+        setTimeout(() => {
+            characterDeadSound.play();
+        }, 1000);
+    }
+
+    /**
+     * Ends the dying animation by pausing the game music, running sound and snoring sound,
+     * setting the character's died state to true, setting the character's image to the last
+     * image in the dying animation, and ending all intervals.
+     * This function is called after a delay of 800 milliseconds after the dying animation
+     * has been started.
+     */
+    endDyingAnimationWithCorrectLastImage() {
+        setTimeout(() => {
+            gameMusic.pause();
+            runningSound.pause();
+            snoringSound.pause();
+            this.died = true;
+            this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
+            this.endAllIntervals();
+        }, 800);
+    }
+
+    /**
+     * Shows the end screen when the game is lost. This function is called after
+     * the dying animation has been started. It waits for 5500 milliseconds,
+     * then hides the canvas, shows the end screen, sets the game over image to
+     * the "oh no you lost!" image and plays the dead screen sound.
+     */
+    showEndScreenWhenLost() {
+        setTimeout(() => {
+            document.getElementById("canvas").classList.add("d-none");
+            document.getElementById("end-screen-wrapper").classList.remove("d-none");
+            document.getElementById("game-over-img").src = "./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png";
+            deadScreenSound.play();
+        }, 5500);
+    }
+
+    /**
+     * Initiates the character's dying animation sequence. This function creates an interval
+     * that repeatedly checks if the character is dead and has not yet completed the dying
+     * sequence. If so, it plays the full dying animation, updates the character's state and
+     * image to reflect death, and transitions to the end screen after a delay. The interval
+     * runs every 150 milliseconds and is added to the intervalIds array for management.
+     */
+
+    playDyingAnimation() {
+        let characterDyingInterval = setInterval(() => {
+            if (this.isDead() &amp;&amp; !this.died) {
+                this.showFullDyingAnimation();
+                this.endDyingAnimationWithCorrectLastImage();
+                this.showEndScreenWhenLost();
+            }
+        }, 150);
+        intervalIds.push(characterDyingInterval);
+    }
+
+    /**
+     * Plays the idle animation for the character if they are idle.
+     * The animation is triggered when the character is in a waiting state and not jumping.
+     * The animation is split into two parts, the first part is played for 10 seconds and the second part is played after that.
+     * The idle animation is triggered by an interval of 160 milliseconds.
+     */
+    playIdleAnimation() {
+        let idleTimeout = 10 * 1000;
+        let characterIdleInterval = setInterval(() => {
+            if (!this.isAboveGround() &amp;&amp; !this.isDead() &amp;&amp; !this.isHurt() &amp;&amp; this.isWaiting()) {
+                runningSound.pause();
+                if (Date.now() - this.idleStartTime &lt; idleTimeout) {
+                    this.playAnimationInfinite(this.IMAGES_IDLE);
+                } else {
+                    snoringSound.play();
+                    this.playAnimationInfinite(this.IMAGES_LONG_IDLE);
+                }
+            }
+        }, 160);
+        intervalIds.push(characterIdleInterval);
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="CollectableObject.html">CollectableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBackgroundObjectsToArray">addBackgroundObjectsToArray</a></li><li><a href="global.html#createWorld">createWorld</a></li><li><a href="global.html#getBackToPreviousSite">getBackToPreviousSite</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#muteAllSounds">muteAllSounds</a></li><li><a href="global.html#muteMusic">muteMusic</a></li><li><a href="global.html#readSoundChoiceFromLocalStorage">readSoundChoiceFromLocalStorage</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setAudioLoop">setAudioLoop</a></li><li><a href="global.html#setSoundVolumes">setSoundVolumes</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllAudios">stopAllAudios</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#unmuteMusic">unmuteMusic</a></li><li><a href="global.html#writeSoundChoiceToLocalStorage">writeSoundChoiceToLocalStorage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 15:19:58 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

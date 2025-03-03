@@ -8,6 +8,11 @@ class StatusBarBottle extends StatusBar {
         "./assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/blue/100.png",
     ];
 
+    /**
+     * Initializes the StatusBarBottle object by loading images and setting the initial percentage.
+     * Inherits properties and methods from the StatusBar class.
+     */
+
     constructor() {
         super();
         this.loadImages(this.IMAGES);

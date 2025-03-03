@@ -60,6 +60,13 @@ class Character extends MovableObject {
 
     IMAGES_HURT = ["./assets/img/2_character_pepe/4_hurt/H-41.png", "./assets/img/2_character_pepe/4_hurt/H-42.png", "./assets/img/2_character_pepe/4_hurt/H-43.png"];
 
+    /**
+     * Constructor for Character class
+     * @constructor
+     * @param {Object} world - the World object that the Character is part of
+     * @param {Number} x - the x position of the Character
+     * @param {Number} y - the y position of the Character
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_THROWING);
@@ -91,6 +98,11 @@ class Character extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Animates the character by checking movement and playing relevant animations.
+     * This includes animations for walking, jumping, being hurt, dying, idling, and throwing.
+     */
+
     animate() {
         this.checkAndPlayMovementAnimation();
         this.playWalkingAnimation();
@@ -101,43 +113,97 @@ class Character extends MovableObject {
         this.playThrowingAnimation();
     }
 
+    /**
+     * Pauses the running sound while the character is jumping.
+     * This function is used within the character's animation loop.
+     */
+    pauseRunningSoundWhileJumping() {
+        if (this.isAboveGround()) {
+            runningSound.pause();
+        }
+    }
+
+    /**
+     * Handles the right arrow key by moving the character to the right when the
+     * right arrow key is pressed and the character is not at the end of the level.
+     * Plays the running sound and pauses it while the character is jumping.
+     */
+    handleMovingRight() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.otherDirection = false;
+            runningSound.play();
+            this.pauseRunningSoundWhileJumping();
+            this.moveRight();
+        }
+    }
+
+    handleMovingLeft() {
+        if (this.world.keyboard.LEFT && this.x > -610) {
+            this.otherDirection = true;
+            runningSound.play();
+            this.pauseRunningSoundWhileJumping();
+            this.moveLeft();
+        }
+    }
+
+    /**
+     * Handles the SPACE or UP arrow key by making the character jump
+     * when the character is not already jumping.
+     * Pauses the running sound and plays the jumping sound.
+     */
+    handleJumping() {
+        if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
+            runningSound.pause();
+            characterJumpSound.play();
+            this.jump();
+        }
+    }
+
+    /**
+     * Handles the D key by setting the character's throwing status accordingly.
+     * This is used to determine whether the character should throw a bottle or not.
+     */
+    handleThrowing() {
+        if (this.world.keyboard.D) {
+            this.throws = true;
+        }
+        if (!this.world.keyboard.D) {
+            this.throws = false;
+        }
+    }
+
+    /**
+     * Checks and handles the character's movement and jumping.
+     * This involves checking the state of the movement keys and the jump key.
+     * It also updates the camera's x position to follow the character.
+     * @param {number} interval - The interval at which to check and handle the character's movement in milliseconds.
+     */
     checkAndPlayMovementAnimation() {
         let characterCheckAnimationInterval = setInterval(() => {
             this.checkCharacterJumpAttacks();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.otherDirection = false;
-                runningSound.play();
-                if (this.isAboveGround()) {
-                    runningSound.pause();
-                }
-                this.moveRight();
-            }
-            if (this.world.keyboard.LEFT && this.x > -610) {
-                this.otherDirection = true;
-                runningSound.play();
-                this.moveLeft();
-            }
-            if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
-                runningSound.pause();
-                characterJumpSound.play();
-                this.jump();
-            }
-            if (this.world.keyboard.D) {
-                this.throws = true;
-            }
-            if (!this.world.keyboard.D) {
-                this.throws = false;
-            }
+            this.handleMovingRight();
+            this.handleMovingLeft();
+            this.handleJumping();
+            this.handleThrowing();
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
         intervalIds.push(characterCheckAnimationInterval);
     }
 
+    /**
+     * Makes the character jump by setting its fall speed to 20 and resetting its idle timer.
+     */
     jump() {
         this.fallSpeed = 20;
         this.resetIdleTimer();
     }
 
+    /**
+     * Checks if the character is currently jumpattacking.
+     * The character is considered to be on his way down in a jump if its y position is greater than -20 and its fall
+     * speed is negative.
+     * @returns {boolean} Whether the character is jumpattacking an an enemy from above.
+     */
     checkCharacterJumpAttacks() {
         if (this.y > -20 && this.fallSpeed < 0) {
             this.jumpAttacks = true;
@@ -146,6 +212,13 @@ class Character extends MovableObject {
         }
         return this.jumpAttacks;
     }
+
+    /**
+     * Plays the walking animation for the character if they are not above ground and not dead.
+     * The animation is triggered when the RIGHT or LEFT keyboard keys are pressed.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the walking animation.
+     */
 
     playWalkingAnimation() {
         let characterWalkingInterval = setInterval(() => {
@@ -159,6 +232,12 @@ class Character extends MovableObject {
         intervalIds.push(characterWalkingInterval);
     }
 
+    /**
+     * Plays the jumping animation for the character if they are not above ground and not dead.
+     * The animation is triggered when the character is above ground and not dead.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the jumping animation.
+     */
     playJumpingAnimation() {
         let characterJumpingInterval = setInterval(() => {
             if (this.isAboveGround()) {
@@ -169,10 +248,21 @@ class Character extends MovableObject {
         intervalIds.push(characterJumpingInterval);
     }
 
+    /**
+     * Checks if the character is currently in the act of throwing an object.
+     * @returns {boolean} True if the character is throwing, otherwise false.
+     */
+
     isThrowing() {
         return this.throws;
     }
 
+    /**
+     * Plays the throwing animation for the character if they are currently in the act of throwing.
+     * The animation is triggered when the character is throwing.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the throwing animation.
+     */
     playThrowingAnimation() {
         let characterThrowingInterval = setInterval(() => {
             if (this.isThrowing()) {
@@ -182,6 +272,13 @@ class Character extends MovableObject {
         }, 100);
         intervalIds.push(characterThrowingInterval);
     }
+
+    /**
+     * Plays the hurt animation for the character if they are hurt.
+     * The animation is triggered when the character is in a hurt state.
+     * Resets the idle timer each time the animation is played.
+     * This function sets an interval to continuously check and play the hurt animation.
+     */
 
     playHurtAnimation() {
         let characterHurtInterval = setInterval(() => {
@@ -193,38 +290,82 @@ class Character extends MovableObject {
         intervalIds.push(characterHurtInterval);
     }
 
+    /**
+     * Plays the full dying animation sequence for the character.
+     * This involves pausing the running and snoring sounds, playing the dying sound,
+     * executing the dying animation, and resetting the idle timer.
+     * After a delay of 1000 milliseconds, the dead sound is played.
+     */
+
+    showFullDyingAnimation() {
+        runningSound.pause();
+        snoringSound.pause();
+        characterDyingSound.play();
+        this.playAnimationOnce(this.IMAGES_DEAD);
+        this.resetIdleTimer();
+        setTimeout(() => {
+            characterDeadSound.play();
+        }, 1000);
+    }
+
+    /**
+     * Ends the dying animation by pausing the game music, running sound and snoring sound,
+     * setting the character's died state to true, setting the character's image to the last
+     * image in the dying animation, and ending all intervals.
+     * This function is called after a delay of 800 milliseconds after the dying animation
+     * has been started.
+     */
+    endDyingAnimationWithCorrectLastImage() {
+        setTimeout(() => {
+            gameMusic.pause();
+            runningSound.pause();
+            snoringSound.pause();
+            this.died = true;
+            this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
+            this.endAllIntervals();
+        }, 800);
+    }
+
+    /**
+     * Shows the end screen when the game is lost. This function is called after
+     * the dying animation has been started. It waits for 5500 milliseconds,
+     * then hides the canvas, shows the end screen, sets the game over image to
+     * the "oh no you lost!" image and plays the dead screen sound.
+     */
+    showEndScreenWhenLost() {
+        setTimeout(() => {
+            document.getElementById("canvas").classList.add("d-none");
+            document.getElementById("end-screen-wrapper").classList.remove("d-none");
+            document.getElementById("game-over-img").src = "./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png";
+            deadScreenSound.play();
+        }, 5500);
+    }
+
+    /**
+     * Initiates the character's dying animation sequence. This function creates an interval
+     * that repeatedly checks if the character is dead and has not yet completed the dying
+     * sequence. If so, it plays the full dying animation, updates the character's state and
+     * image to reflect death, and transitions to the end screen after a delay. The interval
+     * runs every 150 milliseconds and is added to the intervalIds array for management.
+     */
+
     playDyingAnimation() {
         let characterDyingInterval = setInterval(() => {
             if (this.isDead() && !this.died) {
-                runningSound.pause();
-                snoringSound.pause();
-                characterDyingSound.play();
-                this.playAnimationOnce(this.IMAGES_DEAD);
-                this.resetIdleTimer();
-                setTimeout(() => {
-                    characterDeadSound.play();
-                }, 1000);
-
-                setTimeout(() => {
-                    gameMusic.pause();
-                    runningSound.pause();
-                    snoringSound.pause();
-                    this.died = true;
-                    this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
-                    this.endAllIntervals();
-                }, 800);
-
-                setTimeout(() => {
-                    document.getElementById("canvas").classList.add("d-none");
-                    document.getElementById("end-screen-wrapper").classList.remove("d-none");
-                    document.getElementById("game-over-img").src = "./assets/img/9_intro_outro_screens/game_over/oh no you lost!.png";
-                    deadScreenSound.play();
-                }, 5500);
+                this.showFullDyingAnimation();
+                this.endDyingAnimationWithCorrectLastImage();
+                this.showEndScreenWhenLost();
             }
         }, 150);
         intervalIds.push(characterDyingInterval);
     }
 
+    /**
+     * Plays the idle animation for the character if they are idle.
+     * The animation is triggered when the character is in a waiting state and not jumping.
+     * The animation is split into two parts, the first part is played for 10 seconds and the second part is played after that.
+     * The idle animation is triggered by an interval of 160 milliseconds.
+     */
     playIdleAnimation() {
         let idleTimeout = 10 * 1000;
         let characterIdleInterval = setInterval(() => {

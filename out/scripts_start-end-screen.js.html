@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/start-end-screen.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/start-end-screen.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const MUTE_ICON = document.getElementById("mute-icon");
+const SPEAKER_ICON = document.getElementById("speaker-icon");
+const SCREEN_ICON = document.getElementById("toggle-screen-icon");
+const START_SCREEN_WRAPPER = document.getElementById("start-screen-wrapper");
+const END_SCREEN_WRAPPER = document.getElementById("end-screen-wrapper");
+const CANVAS = document.getElementById("canvas");
+const GAME_OVER_MESSAGE_IMG = document.getElementById("game-over-img");
+
+let isStartScreen = true;
+
+/**
+ * Makes music audible again after it was muted.
+ *
+ * @author Manuel Paccagnella
+ */
+function unmuteMusic() {
+    MUTE_ICON.classList.add("d-none");
+    if (isStartScreen || (eplSoundChoice &amp;&amp; !isFirstGameStart &amp;&amp; isStartScreen)) {
+        startScreenSound.currentTime = 0;
+        startScreenSound.play();
+    }
+    setSoundVolumes();
+    eplSoundChoice = true;
+    writeSoundChoiceToLocalStorage();
+}
+
+/**
+ * Mutes the music in the game by hiding the mute icon and muting all sounds.
+ * It also updates the sound choice state and saves it to local storage.
+ * This function is typically used when the user opts to mute the game audio.
+ */
+
+function muteMusic() {
+    MUTE_ICON.classList.remove("d-none");
+    muteAllSounds();
+    eplSoundChoice = false;
+    writeSoundChoiceToLocalStorage();
+}
+
+/**
+ * Initiates the game by transitioning from the start screen to the game canvas.
+ * Pauses the start screen music, reveals the game canvas, and hides the start screen wrapper.
+ * Reads the sound choice from local storage to determine whether to mute or unmute music.
+ * Sets up the game world and updates the state to indicate it's no longer the first game start.
+ */
+
+function startGame() {
+    isStartScreen = false;
+    startScreenSound.pause();
+    CANVAS.classList.remove("d-none");
+    START_SCREEN_WRAPPER.classList.add("d-none");
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if (eplSoundChoice === "false") {
+        muteAllSounds();
+    } else {
+        unmuteMusic();
+    }
+    createWorld();
+    isFirstGameStart = false;
+}
+
+/**
+ * Restarts the game by stopping all audio, hiding the end screen, and initiating the game again.
+ * It also resets the game over image and updates the sound choice state accordingly.
+ * This function is called when the user chooses to replay the game after viewing the end screen.
+ */
+function restartGame() {
+    GAME_OVER_MESSAGE_IMG.src = "./assets/img/9_intro_outro_screens/game_over/game over.png";
+    stopAllAudios();
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if (eplSoundChoice === "false") {
+        muteAllSounds();
+    } else {
+        unmuteMusic();
+    }
+    END_SCREEN_WRAPPER.classList.add("d-none");
+    startGame();
+}
+
+/**
+ * Shows the home screen by stopping all audio, setting the game over image to the default image,
+ * updating the sound choice state, and hiding the game canvas and end screen wrapper, while revealing the start screen wrapper.
+ * This function is called when the user chooses to leave the game after viewing the end screen.
+ */
+
+function showHomeScreen() {
+    GAME_OVER_MESSAGE_IMG.src = "./assets/img/9_intro_outro_screens/game_over/game over.png";
+    isStartScreen = true;
+    stopAllAudios();
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if ((!isFirstGameStart &amp;&amp; eplSoundChoice === "false") || eplSoundChoice === "false") {
+        muteMusic();
+    } else {
+        unmuteMusic();
+    }
+    CANVAS.classList.add("d-none");
+    END_SCREEN_WRAPPER.classList.add("d-none");
+    START_SCREEN_WRAPPER.classList.remove("d-none");
+}
+
+document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
+        SCREEN_ICON.src = "./assets/icons/window_mode_icon.png";
+    } else {
+        SCREEN_ICON.src = "./assets/icons/fullscreen_icon.png";
+    }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="CollectableObject.html">CollectableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBackgroundObjectsToArray">addBackgroundObjectsToArray</a></li><li><a href="global.html#createWorld">createWorld</a></li><li><a href="global.html#getBackToPreviousSite">getBackToPreviousSite</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#muteAllSounds">muteAllSounds</a></li><li><a href="global.html#muteMusic">muteMusic</a></li><li><a href="global.html#readSoundChoiceFromLocalStorage">readSoundChoiceFromLocalStorage</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setAudioLoop">setAudioLoop</a></li><li><a href="global.html#setSoundVolumes">setSoundVolumes</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllAudios">stopAllAudios</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#unmuteMusic">unmuteMusic</a></li><li><a href="global.html#writeSoundChoiceToLocalStorage">writeSoundChoiceToLocalStorage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 15:19:58 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

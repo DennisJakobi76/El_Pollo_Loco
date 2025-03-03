@@ -1,4 +1,9 @@
 class Keyboard {
+    /**
+     * Constructor for Keyboard class.
+     *
+     * Initializes the Keyboard with all keys set to false.
+     */
     constructor() {
         this.LEFT = false;
         this.RIGHT = false;

@@ -1,4 +1,8 @@
 class DrawableObject {
+    /**
+     * Initializes a new instance of the DrawableObject class.
+     * @constructor
+     */
     constructor() {
         this.x = 120;
         this.y = 280;
@@ -9,10 +13,22 @@ class DrawableObject {
         this.world;
     }
 
+    /**
+     * Loads an image from the specified path and assigns it to the `img` property.
+     *
+     * @param {string} path - The path to the image file.
+     */
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
+
+    /**
+     * Loads multiple images from the specified array of paths and caches them.
+     *
+     * @param {string[]} array - An array of paths to the image files.
+     */
 
     loadImages(array) {
         array.forEach((path) => {
@@ -21,6 +37,13 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
+
+    /**
+     * Draws the current image of the DrawableObject on the provided canvas context.
+     *
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the image will be drawn.
+     * Logs a warning and an error message if the image cannot be loaded.
+     */
 
     draw(ctx) {
         try {
@@ -31,6 +54,11 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Draws a blue frame around the DrawableObject on the provided canvas context if it is an instance of Character, Chicken, SmallChicken, Endboss, ThrowableObject, or CollectableObject.
+     *
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the frame will be drawn.
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof CollectableObject) {
             ctx.beginPath();
@@ -40,6 +68,13 @@ class DrawableObject {
             ctx.stroke();
         }
     }
+
+    /**
+     * Draws a red frame around the DrawableObject with an offset, on the provided canvas context,
+     * if it is an instance of Character, Chicken, SmallChicken, Endboss, ThrowableObject, or CollectableObject.
+     *
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context where the frame will be drawn.
+     */
 
     drawOffset(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof ThrowableObject || this instanceof CollectableObject) {
