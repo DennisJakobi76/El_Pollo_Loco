@@ -56,14 +56,20 @@
 		</div>
 		<div id="canvas-and-instruction-container">
 			<canvas id="canvas" width="720" height="480" class="d-none"></canvas>
-			<div id="game-control-container">
-				<div class="two-controls-container">
-					<div class="character-control" id="character-control-left">&lArr;</div>
-					<div class="character-control" id="character-control-right">&rArr;</div>
-				</div>
-				<div class="two-controls-container">
-					<div class="character-control" id="character-control-jump">&uArr;</div>
-					<div class="character-control" id="character-control-throw"></div>
+			<div id="game-control-wrapper" class="d-none">
+				<div id="game-control-container">
+					<div class="two-controls-container">
+						<div class="character-control" id="character-control-left"><img
+								src="./assets/icons/left-control.png" alt="links Icon"></div>
+						<div class="character-control" id="character-control-right"><img
+								src="./assets/icons/right-control.png" alt="rechts Icon"></div>
+					</div>
+					<div class="two-controls-container">
+						<div class="character-control" id="character-control-jump"><img
+								src="./assets/icons/jump-control.png" alt="Sprung Icon"></div>
+						<div class="character-control" id="character-control-throw"><img
+								src="./assets/icons/bottle_control.png" alt="Wurf Icon" id="throw-icon"></div>
+					</div>
 				</div>
 			</div>
 			<div id="instruction-container">
