@@ -7,10 +7,18 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+/**
+ * Initializes the game by getting the canvas element.
+ */
 function init() {
     canvas = document.getElementById("canvas");
 }
 
+/**
+ * Creates a new World object and assigns it to the `world` variable.
+ * This will reset the game state and restart the game.
+ * @function
+ */
 function createWorld() {
     world = null;
     world = new World(canvas, keyboard);

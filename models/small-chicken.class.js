@@ -7,6 +7,11 @@ class SmallChicken extends Chicken {
 
     IMAGES_DEAD = ["./assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
+    /**
+     * Creates a new instance of SmallChicken.
+     * @constructor
+     * @this {SmallChicken}
+     */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);

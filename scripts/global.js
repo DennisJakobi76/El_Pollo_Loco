@@ -45,6 +45,12 @@ let allAudios = [
     throwBottleSound,
 ];
 
+/**
+ * Sets the volume levels for various game audio elements.
+ * Each audio element is assigned a specific volume level ranging from 0.0 to 1.0.
+ * This function is used to initialize or reset the audio volumes to their default levels.
+ */
+
 function setSoundVolumes() {
     startScreenSound.volume = 0.6;
     deadScreenSound.volume = 0.6;
@@ -64,16 +70,29 @@ function setSoundVolumes() {
     senioraGallinaDyingSound.volume = 0.4;
     mexicanHatSound.volume = 0.8;
 }
+/**
+ * Stops all currently playing audio elements and resets their currentTime to 0.
+ * This is useful for silencing all audio in the game when transitioning to a new screen or restarting the game.
+ */
 function stopAllAudios() {
     allAudios.forEach((audio) => {
         audio.pause();
         audio.currentTime = 0;
     });
 }
+/**
+ * Mutes all audio elements in the game by setting their volume levels to 0.
+ * This is useful for silencing all audio in the game when the user wants to play the game in silent mode.
+ */
 function muteAllSounds() {
     allAudios.forEach((audio) => (audio.volume = 0));
 }
 
+/**
+ * Sets an audio element to loop indefinitely by listening to the 'ended' event
+ * and resetting the currentTime to 0 and playing the audio again.
+ * @param {HTMLAudioElement} audio - The audio element to loop.
+ */
 function setAudioLoop(audio) {
     audio.addEventListener("ended", () => {
         audio.currentTime = 0;
@@ -81,10 +100,21 @@ function setAudioLoop(audio) {
     });
 }
 
+/**
+ * Writes the current sound choice to the local storage.
+ * The key used to store the sound choice is "EPL_SoundOn" and the value is the current value of the global variable eplSoundChoice.
+ */
 function writeSoundChoiceToLocalStorage() {
     localStorage.setItem("EPL_SoundOn", eplSoundChoice);
 }
 
+/**
+ * Reads the sound choice from the local storage and returns it.
+ * The sound choice is a string indicating whether the sound is on or off.
+ * The key used to store the sound choice is "EPL_SoundOn".
+ * If the key is not found in the local storage, the function returns null.
+ * @return {string|null} The current sound choice or null if not found.
+ */
 function readSoundChoiceFromLocalStorage() {
     eplSoundChoice = localStorage.getItem("EPL_SoundOn");
     return eplSoundChoice;

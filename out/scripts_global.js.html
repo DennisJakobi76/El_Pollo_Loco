@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/global.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/global.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let intervalIds = [];
+
+let cloudCounter = 1;
+let chickenCounter = 1;
+let coinCounter = 1;
+let charactersInitialFallSpeed = 20;
+let characterHasThrownOneBottle = false;
+let eplSoundChoice = false;
+let isFirstGameStart = true;
+
+let startScreenSound = new Audio("./assets/audio/startScreenSound.mp3");
+let deadScreenSound = new Audio("./assets/audio/deadScreenSound.mp3");
+let gameOverSound = new Audio("./assets/audio/gameOverSound.mp3");
+let gameMusic = new Audio("./assets/audio/gameSound.mp3");
+let characterJumpSound = new Audio("./assets/audio/characterJump.mp3");
+let chickenHitSound = new Audio("./assets/audio/chickenHitSound.mp3");
+let bottleSplashSound = new Audio("./assets/audio/bottleBreakSound.mp3");
+let runningSound = new Audio("./assets/audio/runningSound.mp3");
+let snoringSound = new Audio("./assets/audio/snoringSound.mp3");
+let characterHitSound = new Audio("./assets/audio/characterHitSound.mp3");
+let characterDyingSound = new Audio("./assets/audio/dyingCharacterSound.mp3");
+let characterDeadSound = new Audio("./assets/audio/characterDeadSound.mp3");
+let senioraGallinaHitSound = new Audio("./assets/audio/senioraGallinaHitSound.mp3");
+let senioraGallinaDyingSound = new Audio("./assets/audio/senioraGallinaDyingSound.mp3");
+let mexicanHatSound = new Audio("./assets/audio/mexicanHatSound.mp3");
+let pickUpItemSound = new Audio("./assets/audio/pickUpItemSound.mp3");
+let throwBottleSound = new Audio("./assets/audio/throwBottleSound.mp3");
+let allAudios = [
+    startScreenSound,
+    deadScreenSound,
+    gameOverSound,
+    gameMusic,
+    characterJumpSound,
+    chickenHitSound,
+    bottleSplashSound,
+    runningSound,
+    snoringSound,
+    characterHitSound,
+    characterDyingSound,
+    characterDeadSound,
+    senioraGallinaHitSound,
+    senioraGallinaDyingSound,
+    mexicanHatSound,
+    pickUpItemSound,
+    throwBottleSound,
+];
+
+/**
+ * Sets the volume levels for various game audio elements.
+ * Each audio element is assigned a specific volume level ranging from 0.0 to 1.0.
+ * This function is used to initialize or reset the audio volumes to their default levels.
+ */
+
+function setSoundVolumes() {
+    startScreenSound.volume = 0.6;
+    deadScreenSound.volume = 0.6;
+    gameOverSound.volume = 0.6;
+    gameMusic.volume = 0.3;
+    characterDyingSound.volume = 0.4;
+    characterDeadSound.volume = 0.4;
+    characterHitSound.volume = 0.8;
+    snoringSound.volume = 0.2;
+    pickUpItemSound.volume = 0.2;
+    runningSound.volume = 0.2;
+    throwBottleSound.volume = 0.2;
+    chickenHitSound.volume = 0.4;
+    characterJumpSound.volume = 0.2;
+    bottleSplashSound.volume = 0.2;
+    senioraGallinaHitSound.volume = 0.4;
+    senioraGallinaDyingSound.volume = 0.4;
+    mexicanHatSound.volume = 0.8;
+}
+/**
+ * Stops all currently playing audio elements and resets their currentTime to 0.
+ * This is useful for silencing all audio in the game when transitioning to a new screen or restarting the game.
+ */
+function stopAllAudios() {
+    allAudios.forEach((audio) => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+}
+/**
+ * Mutes all audio elements in the game by setting their volume levels to 0.
+ * This is useful for silencing all audio in the game when the user wants to play the game in silent mode.
+ */
+function muteAllSounds() {
+    allAudios.forEach((audio) => (audio.volume = 0));
+}
+
+/**
+ * Sets an audio element to loop indefinitely by listening to the 'ended' event
+ * and resetting the currentTime to 0 and playing the audio again.
+ * @param {HTMLAudioElement} audio - The audio element to loop.
+ */
+function setAudioLoop(audio) {
+    audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+}
+
+/**
+ * Writes the current sound choice to the local storage.
+ * The key used to store the sound choice is "EPL_SoundOn" and the value is the current value of the global variable eplSoundChoice.
+ */
+function writeSoundChoiceToLocalStorage() {
+    localStorage.setItem("EPL_SoundOn", eplSoundChoice);
+}
+
+/**
+ * Reads the sound choice from the local storage and returns it.
+ * The sound choice is a string indicating whether the sound is on or off.
+ * The key used to store the sound choice is "EPL_SoundOn".
+ * If the key is not found in the local storage, the function returns null.
+ * @return {string|null} The current sound choice or null if not found.
+ */
+function readSoundChoiceFromLocalStorage() {
+    eplSoundChoice = localStorage.getItem("EPL_SoundOn");
+    return eplSoundChoice;
+}
+
+setAudioLoop(startScreenSound);
+setAudioLoop(gameMusic);
+setAudioLoop(deadScreenSound);
+setAudioLoop(gameOverSound);
+setSoundVolumes();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="CollectableObject.html">CollectableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBackgroundObjectsToArray">addBackgroundObjectsToArray</a></li><li><a href="global.html#createWorld">createWorld</a></li><li><a href="global.html#getBackToPreviousSite">getBackToPreviousSite</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#muteAllSounds">muteAllSounds</a></li><li><a href="global.html#muteMusic">muteMusic</a></li><li><a href="global.html#readSoundChoiceFromLocalStorage">readSoundChoiceFromLocalStorage</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setAudioLoop">setAudioLoop</a></li><li><a href="global.html#setSoundVolumes">setSoundVolumes</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllAudios">stopAllAudios</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#unmuteMusic">unmuteMusic</a></li><li><a href="global.html#writeSoundChoiceToLocalStorage">writeSoundChoiceToLocalStorage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 15:19:58 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/throwable-object.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/throwable-object.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class ThrowableObject extends CollectableObject {
+    IMAGES_ROTATION = [
+        "./assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
+    ];
+
+    IMAGES_BOTTLE_ON_GROUND = ["./assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png", "./assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png"];
+
+    IMAGES_BOTTLE_SPLASH = [
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+        "./assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+    ];
+
+    /**
+     * Initializes a new instance of the ThrowableObject class.
+     * Loads images for the object's various states and sets initial properties.
+     *
+     * @param {number} x - The initial x-coordinate of the object.
+     * @param {number} y - The initial y-coordinate of the object.
+     */
+
+    constructor(x, y) {
+        super().loadImage(this.IMAGES_ROTATION[0]);
+        this.loadImages(this.IMAGES_BOTTLE_ON_GROUND);
+        this.loadImages(this.IMAGES_ROTATION);
+        this.loadImages(this.IMAGES_BOTTLE_SPLASH);
+        this.offset = {
+            top: 10,
+            bottom: 8,
+            left: 18,
+            right: 10,
+        };
+        this.x = x;
+        this.y = y;
+        this.height = 60;
+        this.width = 50;
+        this.world = world;
+        this.lyingOnTheGround = false;
+        this.flightDirection = null;
+        this.throw();
+    }
+
+    /**
+     * Throws the bottle in the direction the character is facing.
+     * If the bottle is in the world, it will be thrown in the direction the character is facing.
+     * If the bottle is not in the world, the function will return without doing anything.
+     * The bottle will be thrown with an initial falling speed of 15 pixels per frame.
+     * The bottle will then be subject to gravity.
+     * The bottle will be animated while it is in the air and when it hits the ground.
+     */
+    throw() {
+        if (this.world) {
+            this.flightDirection = this.world.character.otherDirection ? -1 : 1;
+            this.fallSpeed = 15;
+            this.applyGravity();
+            this.intervalId = setInterval(() => {
+                if (this.isAboveGround()) {
+                    this.playFlyingBottleAnimation();
+                } else {
+                    this.playBottleOnGroundAnimation();
+                    this.lyingOnTheGround = true;
+                }
+            }, 30);
+        } else {
+            return;
+        }
+    }
+
+    /**
+     * Plays the flying bottle animation by setting the bottle's image to the first frame of the
+     * rotation animation and increasing the bottle's x position by 10 pixels multiplied by the
+     * flight direction.
+     */
+    playFlyingBottleAnimation() {
+        this.playAnimationInfinite(this.IMAGES_ROTATION);
+        this.x += this.flightDirection * 10;
+    }
+
+    /**
+     * Plays the bottle on ground animation by setting the bottle's image to a random frame of the
+     * bottle on ground animation and stopping the animation after 60 milliseconds.
+     * The bottle's x position is not changed during the animation.
+     * The characterHasThrownOneBottle flag is reset when the animation is finished.
+     */
+    playBottleOnGroundAnimation() {
+        const randomIndex = Math.floor(Math.random() * this.IMAGES_BOTTLE_ON_GROUND.length);
+        this.playAnimationOnce([this.IMAGES_BOTTLE_ON_GROUND[randomIndex]]);
+        this.x += 0;
+        setTimeout(() => {
+            clearInterval(this.intervalId);
+        }, 60);
+        characterHasThrownOneBottle = false;
+    }
+
+    /**
+     * Plays the bottle splash animation by setting the bottle's image to the bottle splash image
+     * every 50 milliseconds and resetting the characterHasThrownOneBottle flag to false.
+     */
+    playBottleSplashAnimation() {
+        let bottleSplashInterval = setInterval(() => {
+            this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
+        }, 50);
+        characterHasThrownOneBottle = false;
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="CollectableObject.html">CollectableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallChicken.html">SmallChicken</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBackgroundObjectsToArray">addBackgroundObjectsToArray</a></li><li><a href="global.html#createWorld">createWorld</a></li><li><a href="global.html#getBackToPreviousSite">getBackToPreviousSite</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel">initLevel</a></li><li><a href="global.html#muteAllSounds">muteAllSounds</a></li><li><a href="global.html#muteMusic">muteMusic</a></li><li><a href="global.html#readSoundChoiceFromLocalStorage">readSoundChoiceFromLocalStorage</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setAudioLoop">setAudioLoop</a></li><li><a href="global.html#setSoundVolumes">setSoundVolumes</a></li><li><a href="global.html#showHomeScreen">showHomeScreen</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopAllAudios">stopAllAudios</a></li><li><a href="global.html#toggleFullscreen">toggleFullscreen</a></li><li><a href="global.html#unmuteMusic">unmuteMusic</a></li><li><a href="global.html#writeSoundChoiceToLocalStorage">writeSoundChoiceToLocalStorage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 15:19:58 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
