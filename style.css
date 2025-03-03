@@ -253,7 +253,7 @@ canvas {
     transform: rotate(32deg);
 }
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: 960px) {
     #header {
         display: none;
     }
