@@ -59,8 +59,8 @@ function showHomeScreen() {
     GAME_OVER_MESSAGE_IMG.src = "./assets/img/9_intro_outro_screens/game_over/game over.png";
     isStartScreen = true;
     stopAllAudios();
-
-    if (!isFirstGameStart && eplSoundChoice === "false") {
+    eplSoundChoice = readSoundChoiceFromLocalStorage();
+    if ((!isFirstGameStart && eplSoundChoice === "false") || eplSoundChoice === "false") {
         muteMusic();
     } else {
         unmuteMusic();
