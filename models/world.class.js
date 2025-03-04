@@ -40,6 +40,10 @@ class World {
         this.character.world = this;
     }
 
+    /**
+     * Draws all moving objects in the game onto the canvas.
+     * This includes the background objects, clouds, coins, bottles, and enemies.
+     */
     drawMovingObjects() {
         this.addObjectsFromArrayToMap(this.level.backgroundObjects);
         this.addObjectsFromArrayToMap(this.level.clouds);
@@ -49,6 +53,10 @@ class World {
         this.addObjectsFromArrayToMap(this.level.enemies);
     }
 
+    /**
+     * Draws all fixed objects in the game onto the canvas.
+     * This includes the health, coin, and bottle bars.
+     */
     drawFixedObjects() {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
