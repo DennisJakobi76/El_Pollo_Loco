@@ -1,4 +1,16 @@
 class ThrowableObject extends CollectableObject {
+    offset = {
+        top: 10,
+        bottom: 8,
+        left: 18,
+        right: 10,
+    };
+    height = 60;
+    width = 50;
+    world = world;
+    lyingOnTheGround = false;
+    flightDirection = null;
+
     IMAGES_ROTATION = [
         "./assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
         "./assets/img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
@@ -24,25 +36,13 @@ class ThrowableObject extends CollectableObject {
      * @param {number} x - The initial x-coordinate of the object.
      * @param {number} y - The initial y-coordinate of the object.
      */
-
     constructor(x, y) {
         super().loadImage(this.IMAGES_ROTATION[0]);
         this.loadImages(this.IMAGES_BOTTLE_ON_GROUND);
         this.loadImages(this.IMAGES_ROTATION);
         this.loadImages(this.IMAGES_BOTTLE_SPLASH);
-        this.offset = {
-            top: 10,
-            bottom: 8,
-            left: 18,
-            right: 10,
-        };
         this.x = x;
         this.y = y;
-        this.height = 60;
-        this.width = 50;
-        this.world = world;
-        this.lyingOnTheGround = false;
-        this.flightDirection = null;
         this.throw();
     }
 
@@ -103,7 +103,7 @@ class ThrowableObject extends CollectableObject {
      * every 50 milliseconds and resetting the characterHasThrownOneBottle flag to false.
      */
     playBottleSplashAnimation() {
-        let bottleSplashInterval = setInterval(() => {
+        setInterval(() => {
             this.playAnimationOnce(this.IMAGES_BOTTLE_SPLASH);
         }, 50);
         characterHasThrownOneBottle = false;

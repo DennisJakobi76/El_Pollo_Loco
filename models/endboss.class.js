@@ -1,4 +1,21 @@
 class Endboss extends MovableObject {
+    offset = {
+        top: 70,
+        bottom: 20,
+        left: 22,
+        right: 10,
+    };
+    height = 400;
+    width = 280;
+    x = 4000;
+    y = 56;
+    killed = false;
+    speed = 5;
+    nearCharacter = false;
+    notCloseEnoughToAttackCharacter = false;
+    characterInAttackRange = false;
+    characterIsBehindEndboss = false;
+
     IMAGES_ALERT = [
         "./assets/img/4_enemie_boss_chicken/2_alert/G5.png",
         "./assets/img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -46,22 +63,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.offset = {
-            top: 70,
-            bottom: 20,
-            left: 22,
-            right: 10,
-        };
-        this.height = 400;
-        this.width = 280;
-        this.x = 4000;
-        this.y = 56;
-        this.killed = false;
-        this.speed = 5;
-        this.nearCharacter = false;
-        this.notCloseEnoughToAttackCharacter = false;
-        this.characterInAttackRange = false;
-        this.characterIsBehindEndboss = false;
         this.animate();
     }
 

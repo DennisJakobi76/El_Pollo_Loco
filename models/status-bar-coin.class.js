@@ -1,4 +1,6 @@
 class StatusBarCoin extends StatusBar {
+    y = 42;
+
     IMAGES = [
         "./assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png",
         "./assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png",
@@ -10,15 +12,11 @@ class StatusBarCoin extends StatusBar {
 
     /**
      * Creates a new StatusBarCoin instance.
-     *
-     * Sets the initial percentage of the status bar to 0.
-     * The status bar is positioned at y = 42 on the screen.
-     * The images for the status bar are loaded at construction time.
+     * Loads the images for the coin status bar and sets the initial percentage to 0.
      */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.y = 42;
         this.setPercentage(0);
     }
 }

@@ -1,4 +1,14 @@
 class SmallChicken extends Chicken {
+    y = 384;
+    offset = {
+        top: 2,
+        bottom: 4,
+        left: 4,
+        right: 4,
+    };
+    height = 48;
+    width = 48;
+
     IMAGES_WALKING = [
         "./assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
         "./assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
@@ -15,16 +25,7 @@ class SmallChicken extends Chicken {
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.offset = {
-            top: 2,
-            bottom: 4,
-            left: 4,
-            right: 4,
-        };
-        this.height = 48;
-        this.width = 48;
         this.x = 600 + Math.random() * 1000 * chickenCounter * 4;
-        this.y = 384;
         this.speed = 0.15 + Math.random() * 0.75;
         this.animate();
     }

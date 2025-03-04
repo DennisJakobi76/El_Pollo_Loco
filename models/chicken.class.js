@@ -1,4 +1,17 @@
 class Chicken extends MovableObject {
+    killed = false;
+    dyingAnimationCounter = 0;
+    animationIntervals = [];
+    offset = {
+        top: 2,
+        bottom: 5,
+        left: 0,
+        right: 0,
+    };
+    y = 362;
+    height = 72;
+    width = 72;
+
     IMAGES_WALKING = [
         "./assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
         "./assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -13,25 +26,11 @@ class Chicken extends MovableObject {
      * Also initializes the state variables for tracking the chicken's
      * status and animations.
      */
-
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
-        this.height = 72;
-        this.width = 72;
         this.x = 400 + Math.random() * 1000 * chickenCounter * 5;
-        this.y = 362;
         this.speed = 0.15 + Math.random() * 0.75;
-        this.killed = false;
-        this.dyingAnimationCounter = 0;
-        this.animationIntervals = [];
-        this.offset = {
-            top: 2,
-            bottom: 5,
-            left: 0,
-            right: 0,
-        };
-
         this.animate();
     }
 

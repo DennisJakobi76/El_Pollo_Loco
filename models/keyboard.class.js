@@ -1,15 +1,13 @@
 class Keyboard {
+    LEFT = false;
+    RIGHT = false;
+    UP = false;
+    DOWN = false;
+    SPACE = false;
+    D = false;
+
     /**
-     * Constructor for Keyboard class.
-     *
-     * Initializes the Keyboard with all keys set to false.
+     * Creates an instance of Keyboard.
      */
-    constructor() {
-        this.LEFT = false;
-        this.RIGHT = false;
-        this.UP = false;
-        this.DOWN = false;
-        this.SPACE = false;
-        this.D = false;
-    }
+    constructor() {}
 }

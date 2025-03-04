@@ -1,4 +1,6 @@
 class Level {
+    level_end_x = 4410;
+
     /**
      * Initializes a new Level object with the given parameters.
      *
@@ -8,7 +10,6 @@ class Level {
      * @param {Array<CollectableObject>} coins - An array of CollectableObject instances representing the coins in the level.
      */
     constructor(enemies, clouds, backgroundObjects, coins) {
-        this.level_end_x = 4410;
         this.enemies = enemies;
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
