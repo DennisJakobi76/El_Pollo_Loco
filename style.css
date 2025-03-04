@@ -420,7 +420,7 @@ canvas {
     }
 }
 
-@media (any-pointer: coarse) {
+@media (pointer: coarse) {
     .game-button-container {
         z-index: 2;
     }

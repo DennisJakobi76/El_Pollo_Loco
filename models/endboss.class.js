@@ -10,7 +10,7 @@ class Endboss extends MovableObject {
     x = 4000;
     y = 56;
     killed = false;
-    speed = 5;
+    speed = 8;
     nearCharacter = false;
     notCloseEnoughToAttackCharacter = false;
     characterInAttackRange = false;
@@ -196,6 +196,10 @@ class Endboss extends MovableObject {
                     this.playAnimationInfinite(this.IMAGES_WALKING);
                     this.moveRight();
                 }
+            }
+            if (this.characterIsBehindEndboss && !this.isHurt() && !this.isDead()) {
+                this.playAnimationInfinite(this.IMAGES_WALKING);
+                this.moveRight();
             }
         }, 100);
         intervalIds.push(bossWalkingInterval);
