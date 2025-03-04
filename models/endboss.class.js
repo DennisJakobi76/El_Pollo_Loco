@@ -129,6 +129,8 @@ class Endboss extends MovableObject {
             this.killed = true;
             this.img.src = this.IMAGES_DEAD[this.IMAGES_DEAD.length - 1];
             this.endAllIntervals();
+            runningSound.pause();
+            characterJumpSound.pause();
             gameMusic.pause();
         }, 800);
     }
