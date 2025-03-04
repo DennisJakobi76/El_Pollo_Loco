@@ -419,3 +419,15 @@ canvas {
         display: block;
     }
 }
+
+@media (any-pointer: coarse) {
+    .game-button-container {
+        z-index: 2;
+    }
+    #game-control-wrapper {
+        position: absolute;
+        display: block;
+        width: 100%;
+        bottom: 0;
+    }
+}
