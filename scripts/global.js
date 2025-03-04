@@ -52,23 +52,23 @@ let allAudios = [
  */
 
 function setSoundVolumes() {
-    startScreenSound.volume = 0.6;
-    deadScreenSound.volume = 0.6;
-    gameOverSound.volume = 0.6;
-    gameMusic.volume = 0.3;
-    characterDyingSound.volume = 0.4;
-    characterDeadSound.volume = 0.4;
-    characterHitSound.volume = 0.8;
-    snoringSound.volume = 0.2;
-    pickUpItemSound.volume = 0.2;
-    runningSound.volume = 0.2;
-    throwBottleSound.volume = 0.2;
-    chickenHitSound.volume = 0.4;
-    characterJumpSound.volume = 0.2;
-    bottleSplashSound.volume = 0.2;
-    senioraGallinaHitSound.volume = 0.4;
-    senioraGallinaDyingSound.volume = 0.4;
-    mexicanHatSound.volume = 0.8;
+    startScreenSound.volume = 0.1;
+    deadScreenSound.volume = 0.1;
+    gameOverSound.volume = 0.1;
+    gameMusic.volume = 0.1;
+    characterDyingSound.volume = 0.1;
+    characterDeadSound.volume = 0.1;
+    characterHitSound.volume = 0.1;
+    snoringSound.volume = 0.1;
+    pickUpItemSound.volume = 0.1;
+    runningSound.volume = 0.1;
+    throwBottleSound.volume = 0.1;
+    chickenHitSound.volume = 0.1;
+    characterJumpSound.volume = 0.1;
+    bottleSplashSound.volume = 0.1;
+    senioraGallinaHitSound.volume = 0.1;
+    senioraGallinaDyingSound.volume = 0.1;
+    mexicanHatSound.volume = 0.1;
 }
 /**
  * Stops all currently playing audio elements and resets their currentTime to 0.
@@ -117,6 +117,9 @@ function writeSoundChoiceToLocalStorage() {
  */
 function readSoundChoiceFromLocalStorage() {
     eplSoundChoice = localStorage.getItem("EPL_SoundOn");
+    if (eplSoundChoice === null) {
+        eplSoundChoice = "false";
+    }
     return eplSoundChoice;
 }
 

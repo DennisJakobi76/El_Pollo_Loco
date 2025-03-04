@@ -1,4 +1,19 @@
 class Character extends MovableObject {
+    died = false;
+    jumpAttacks = false;
+    throws = false;
+    world;
+    offset = {
+        top: 100,
+        bottom: 10,
+        left: 26,
+        right: 26,
+    };
+    height = 250;
+    width = 124;
+    y = 80 - 100;
+    speed = 10;
+
     IMAGES_THROWING = ["./assets/img/2_character_pepe/2_walk/W-22.png"];
 
     IMAGES_WALKING = [
@@ -11,9 +26,6 @@ class Character extends MovableObject {
     ];
 
     IMAGES_JUMPING = [
-        "./assets/img/2_character_pepe/3_jump/J-31.png",
-        "./assets/img/2_character_pepe/3_jump/J-32.png",
-        "./assets/img/2_character_pepe/3_jump/J-33.png",
         "./assets/img/2_character_pepe/3_jump/J-34.png",
         "./assets/img/2_character_pepe/3_jump/J-35.png",
         "./assets/img/2_character_pepe/3_jump/J-36.png",
@@ -61,11 +73,10 @@ class Character extends MovableObject {
     IMAGES_HURT = ["./assets/img/2_character_pepe/4_hurt/H-41.png", "./assets/img/2_character_pepe/4_hurt/H-42.png", "./assets/img/2_character_pepe/4_hurt/H-43.png"];
 
     /**
-     * Constructor for Character class
-     * @constructor
-     * @param {Object} world - the World object that the Character is part of
-     * @param {Number} x - the x position of the Character
-     * @param {Number} y - the y position of the Character
+     * Initializes a new Character instance with specific properties.
+     * Loads the walking images and sets the initial position and speed.
+     * Also initializes the state variables for tracking the character's
+     * status and animations.
      */
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
@@ -76,24 +87,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
-        this.height;
-        this.width;
-        this.y;
-        this.speed = 10;
         this.idleStartTime = Date.now();
-        this.died = false;
-        this.jumpAttacks = false;
-        this.throws = false;
-        this.world;
-        this.offset = {
-            top: 100,
-            bottom: 10,
-            left: 26,
-            right: 26,
-        };
-        this.height = 250;
-        this.width = 124;
-        this.y = 80 - 100;
         this.applyGravity();
         this.animate();
     }

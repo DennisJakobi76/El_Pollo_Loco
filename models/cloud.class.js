@@ -1,4 +1,8 @@
 class Cloud extends MovableObject {
+    y = 20;
+    height = 250;
+    width = 500;
+
     IMAGES = ["./assets/img/5_background/layers/4_clouds/1.png", "./assets/img/5_background/layers/4_clouds/2.png"];
 
     /**
@@ -17,9 +21,6 @@ class Cloud extends MovableObject {
         const randomIndex = Math.floor(Math.random() * this.IMAGES.length);
         this.img.src = this.IMAGES[randomIndex];
         cloudCounter++;
-        this.y = 20;
-        this.height = 250;
-        this.width = 500;
         this.animate();
     }
     /**

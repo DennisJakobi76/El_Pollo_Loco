@@ -1,4 +1,10 @@
 class World {
+    camera_x = 0;
+    bottles = [];
+    bottlesAtStart = [];
+    collectedCoins = 0;
+    collectedBottles = 0;
+    lastCollisionTime = 0;
     /**
      * Initializes a new World object with the given parameters.
      *
@@ -15,15 +21,9 @@ class World {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.keyboard = keyboard;
-        this.camera_x = 0;
         this.healthBar = new StatusBarHealth();
         this.coinBar = new StatusBarCoin();
         this.bottleBar = new StatusBarBottle();
-        this.bottles = [];
-        this.bottlesAtStart = [];
-        this.collectedCoins = 0;
-        this.collectedBottles = 0;
-        this.lastCollisionTime = 0;
         this.addBottlesToArray(this.bottlesAtStart, 10);
         this.endBoss = this.level.enemies[this.level.enemies.length - 1];
         this.draw();
@@ -40,6 +40,21 @@ class World {
         this.character.world = this;
     }
 
+    drawMovingObjects() {
+        this.addObjectsFromArrayToMap(this.level.backgroundObjects);
+        this.addObjectsFromArrayToMap(this.level.clouds);
+        this.addObjectsFromArrayToMap(this.level.coins);
+        this.addObjectsFromArrayToMap(this.bottlesAtStart);
+        this.addObjectsFromArrayToMap(this.bottles);
+        this.addObjectsFromArrayToMap(this.level.enemies);
+    }
+
+    drawFixedObjects() {
+        this.addToMap(this.healthBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
+    }
+
     /**
      * Renders all game objects onto the canvas and updates the display in each frame.
      *
@@ -53,18 +68,10 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsFromArrayToMap(this.level.backgroundObjects);
-        this.addObjectsFromArrayToMap(this.level.clouds);
-        this.addObjectsFromArrayToMap(this.level.coins);
-        this.addObjectsFromArrayToMap(this.bottlesAtStart);
-        this.addObjectsFromArrayToMap(this.bottles);
-        this.addObjectsFromArrayToMap(this.level.enemies);
+        this.drawMovingObjects();
         this.ctx.translate(-this.camera_x, 0);
         // Space for fixed objects
-        this.addToMap(this.healthBar);
-        this.addToMap(this.coinBar);
-        this.addToMap(this.bottleBar);
-
+        this.drawFixedObjects();
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
@@ -462,7 +469,7 @@ class World {
      */
     addBottlesToArray(array, bottleCounter) {
         for (let i = 0; i < bottleCounter; i++) {
-            array.push(new ThrowableObject(Math.floor(Math.random() * 2000) + 200, 365));
+            array.push(new ThrowableObject(Math.floor(Math.random() * 2000) + 200, 375));
         }
     }
 }

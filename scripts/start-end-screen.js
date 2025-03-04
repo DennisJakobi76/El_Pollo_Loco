@@ -10,8 +10,9 @@ let isStartScreen = true;
 
 /**
  * Makes music audible again after it was muted.
- *
- * @author Manuel Paccagnella
+ * Hides the mute icon, plays the start screen music if it's the start screen or if the user wants music and it's not the first game start,
+ * updates the sound choice state and saves it to local storage.
+ * This function is typically used when the user wants to unmute the game audio.
  */
 function unmuteMusic() {
     MUTE_ICON.classList.add("d-none");
@@ -20,7 +21,7 @@ function unmuteMusic() {
         startScreenSound.play();
     }
     setSoundVolumes();
-    eplSoundChoice = true;
+    eplSoundChoice = "true";
     writeSoundChoiceToLocalStorage();
 }
 
@@ -33,7 +34,7 @@ function unmuteMusic() {
 function muteMusic() {
     MUTE_ICON.classList.remove("d-none");
     muteAllSounds();
-    eplSoundChoice = false;
+    eplSoundChoice = "false";
     writeSoundChoiceToLocalStorage();
 }
 

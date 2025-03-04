@@ -1,36 +1,26 @@
 class MovableObject extends DrawableObject {
+    speed = 0.15;
+    otherDirection = false;
+    fallSpeed = 0;
+    fallAcceleration = 1;
+    energy = 100;
+    lastHit = 0;
+    currentImage = 0;
+    startedAnimationOnce = false;
+    offset = {
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    };
+
     /**
-     * Creates a new MovableObject.
-     * @param {number} speed - The speed at which the object moves.
-     * @param {boolean} otherDirection - Whether the object should move in the opposite direction.
-     * @param {number} fallSpeed - The object's initial falling speed.
-     * @param {number} fallAcceleration - The object's falling acceleration.
-     * @param {number} energy - The object's energy.
-     * @param {number} lastHit - The last time the object was hit.
-     * @param {number} currentImage - The index of the current image in the animation.
-     * @param {boolean} startedAnimationOnce - Whether the object has started an animation once.
-     * @param {Object} offset - An object containing the object's offset in pixels.
-     * @param {number} offset.top - The object's top offset.
-     * @param {number} offset.bottom - The object's bottom offset.
-     * @param {number} offset.left - The object's left offset.
-     * @param {number} offset.right - The object's right offset.
+     * Initializes a new instance of the MovableObject class.
+     * @constructor
      */
+
     constructor() {
         super();
-        this.speed = 0.15;
-        this.otherDirection = false;
-        this.fallSpeed = 0;
-        this.fallAcceleration = 1;
-        this.energy = 100;
-        this.lastHit = 0;
-        this.currentImage = 0;
-        this.startedAnimationOnce = false;
-        this.offset = {
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-        };
     }
 
     /**
@@ -122,7 +112,7 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-            return this.y < 365;
+            return this.y < 375;
         } else {
             return this.y < 180;
         }

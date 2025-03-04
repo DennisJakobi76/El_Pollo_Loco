@@ -1,17 +1,17 @@
 class DrawableObject {
+    x = 120;
+    y = 280;
+    height = 150;
+    width = 100;
+    img;
+    imageCache = {};
+    world;
+
     /**
      * Initializes a new instance of the DrawableObject class.
      * @constructor
      */
-    constructor() {
-        this.x = 120;
-        this.y = 280;
-        this.height = 150;
-        this.width = 100;
-        this.img;
-        this.imageCache = {};
-        this.world;
-    }
+    constructor() {}
 
     /**
      * Loads an image from the specified path and assigns it to the `img` property.

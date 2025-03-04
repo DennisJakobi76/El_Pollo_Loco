@@ -1,24 +1,25 @@
 class CollectableObject extends MovableObject {
+    offset = {
+        top: 55,
+        bottom: 55,
+        left: 55,
+        right: 55,
+    };
+    width = 160;
+    height = 160;
+
     IMAGES = ["./assets/img/8_coin/coin_1.png", "./assets/img/8_coin/coin_2.png"];
 
     /**
-     * Creates a new Coin instance at a random x position on the screen.
-     * The x position is determined by the coinCounter variable which is
-     * incremented each time a new Coin instance is created.
-     * The y position is set to a random value between 100 and 230.
-     * The coin starts animating immediately.
+     * Constructs a new instance of CollectableObject.
+     * Loads the initial image and all images for animation.
+     * Positions the object at a random x-coordinate, with a
+     * maximum limit of 3200, and a random y-coordinate between 100 and 230.
+     * Increments the global coinCounter and starts the animation.
      */
     constructor() {
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
-        this.offset = {
-            top: 55,
-            bottom: 55,
-            left: 55,
-            right: 55,
-        };
-        this.width = 160;
-        this.height = 160;
         this.x = 420 + Math.random() * 800 * coinCounter;
         if (this.x > 3500) {
             this.x = 3200;
