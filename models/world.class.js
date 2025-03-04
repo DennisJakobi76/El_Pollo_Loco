@@ -411,8 +411,8 @@ class World {
     checkCharacterNearEndboss() {
         let distanceCharacterToEndboss = Math.abs(this.character.x + this.character.offset.right - (this.endBoss.x - this.endBoss.offset.left));
         distanceCharacterToEndboss <= 450 && distanceCharacterToEndboss >= 350 ? (this.endBoss.nearCharacter = true) : (this.endBoss.nearCharacter = false);
-        distanceCharacterToEndboss < 350 && distanceCharacterToEndboss >= 3 ? (this.endBoss.notCloseEnoughToAttackCharacter = true) : (this.endBoss.notCloseEnoughToAttackCharacter = false);
-        distanceCharacterToEndboss < 3 ? (this.endBoss.characterInAttackRange = true) : (this.endBoss.characterInAttackRange = false);
+        distanceCharacterToEndboss < 350 && distanceCharacterToEndboss >= 10 ? (this.endBoss.notCloseEnoughToAttackCharacter = true) : (this.endBoss.notCloseEnoughToAttackCharacter = false);
+        distanceCharacterToEndboss < 10 ? (this.endBoss.characterInAttackRange = true) : (this.endBoss.characterInAttackRange = false);
     }
 
     /**
@@ -425,9 +425,11 @@ class World {
         if (this.character.x - this.character.offset.left > this.endBoss.x + this.endBoss.offset.right) {
             this.endBoss.characterIsBehindEndboss = true;
             this.endBoss.otherDirection = true;
+            return true;
         } else {
             this.endBoss.characterIsBehindEndboss = false;
             this.endBoss.otherDirection = false;
+            return false;
         }
     }
 
