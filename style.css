@@ -253,6 +253,23 @@ canvas {
     transform: rotate(32deg);
 }
 
+#help-container {
+    /* margin-top: 32px; */
+
+    & h1 {
+        font-size: 32px;
+    }
+
+    & ul {
+        text-align: left;
+        font-size: 24px;
+
+        & li {
+            margin-bottom: 8px;
+        }
+    }
+}
+
 @media only screen and (max-width: 920px) {
     #header {
         display: none;
