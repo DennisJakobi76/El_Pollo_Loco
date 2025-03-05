@@ -10,15 +10,13 @@ class StatusBarHealth extends StatusBar {
         "./assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png",
     ];
 
-    /*************  ✨ Codeium Command ⭐  *************/
     /**
-     * Initializes a new instance of the StatusBarHealth class.
+     * Creates a new StatusBarHealth.
      *
-     * Loads images for the health status bar and sets the initial percentage to 100.
+     * Sets the initial percentage of the status bar to 100.
      * The status bar is positioned at y = 84 on the screen.
+     * The images for the status bar are loaded at construction time.
      */
-
-    /******  6fa80497-04f3-40eb-915c-0c7d93c38eee  *******/
     constructor() {
         super();
         this.loadImages(this.IMAGES);
